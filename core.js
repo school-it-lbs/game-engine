@@ -43,6 +43,18 @@ const character = {
     },
 }
 
+const isNear = function(characterX, characterY, npcX, npcY){
+    return npcX -1 <= characterX 
+        && characterX <= npcX + 1 
+        && npcY -1 <= characterY 
+        && characterY <= npcY + 1;    
+}
+
+
+const isCharacterNear = function(character, row, col){
+    return isNear(character.posX, character.posY, col, row); //note that row / col are switched
+}
+
 
 const fps = function(n) {
     return 1000 / n;
@@ -58,4 +70,21 @@ const isHalfAnimationSec = function(frame){
 
 const isQuarterAnimationSec = function(frame){
     return frame % (FPS/4) == 0;
+}
+
+function startGameLoop(callback){
+    let previousTimestamp = performance.now();
+    function gameloop(timestamp) {
+        let deltaTime = timestamp - previousTimestamp;
+    
+        if (deltaTime > fps(FPS)) {
+            previousTimestamp = timestamp;        
+            const frame = Math.floor((timestamp % 1000) / fps(FPS));            
+            callback(frame);
+        }
+    
+        requestAnimationFrame(gameloop);
+    }
+    
+    requestAnimationFrame(gameloop);
 }

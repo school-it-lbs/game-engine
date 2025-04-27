@@ -68,5 +68,20 @@ const level1 = {
         if (character.posX == 1 && character.posY == 0) {
             world.jumpToLevel(3);
         }
+    },
+
+    isNpcSpeaking: false,
+
+    interact: function(character){    
+        this.isNpcSpeaking = false;
+        if(isCharacterNear(character, 9, 5)){
+            this.isNpcSpeaking = true;
+        }        
+    },
+
+    overlay: function(){
+        if(this.isNpcSpeaking){
+            drawTextWithBackground("hi", 215, 330);
+        }        
     }
 };

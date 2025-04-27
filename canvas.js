@@ -59,7 +59,27 @@ function* allCellsIterator() {
 }
 
 function drawText(text, posX, posY, color){
+    ctx.save();
     ctx.font = "48px serif";
     ctx.fillStyle = color;
     ctx.fillText(text, posX, posY);
+    ctx.restore();
+}
+
+
+function drawTextWithBackground(text, posX, posY) {    
+    ctx.save();
+    ctx.font = "20px serif";
+    ctx.textBaseline = 'top';    
+    ctx.fillStyle = '#fff';
+    
+    /// get width of text
+    var width = ctx.measureText(text).width;
+
+    /// draw background rect assuming height of font
+    ctx.fillRect(posX, posY, width, parseInt(ctx.font, 10));
+        
+    ctx.fillStyle = '#000';
+    ctx.fillText(text, posX, posY);
+    ctx.restore();
 }

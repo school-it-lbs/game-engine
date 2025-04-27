@@ -45,5 +45,13 @@ const level2 = {
         if (character.posX == 4 && character.posY == 4) {
             world.jumpToLevel(1);  
         }
+    },
+
+    interact: function(character){
+        return;
+    },
+
+    overlay: function(){
+        return;
     }
 };

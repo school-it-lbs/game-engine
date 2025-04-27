@@ -47,15 +47,19 @@ function render(frame) {
     if(world.showGrid){
         renderGrid();
     }
+    world.currentLevel.overlay();
     renderText();
 }
 
 
 // input events
 // -------------------------------------------------------------------
-document.addEventListener('click', (e) => {    
-    console.log(Math.floor(e.offsetX / SCALE));
-    console.log(Math.floor(e.offsetY / SCALE));
+document.addEventListener('click', (e) => {   
+    if(world.showGrid){
+        const scaledX = Math.floor(e.offsetX / SCALE);
+        const scaledY = Math.floor(e.offsetY / SCALE);
+        console.log(`offsetX:${e.offsetX} | offsetY:${e.offsetY} | scaled offsetX:${scaledX} | scaled offsetY:${scaledY}`);        
+    }     
 });
 
 
@@ -86,6 +90,10 @@ document.addEventListener('keydown', (e) => {
         character.moveRight();
     }
 
+    if(e.code == 'KeyE') {
+        world.currentLevel.interact(character);
+    }
+
     // collision detection
     const nextTile = world.currentLevel.main[character.posY][character.posX];
     if (!world.reachable.includes(nextTile)) {
@@ -100,22 +108,8 @@ document.addEventListener('keydown', (e) => {
     }
     
     world.currentLevel.teleport(character);
+
 });
 
 
-// game loop
-// -------------------------------------------------------------------
-let previousTimestamp = performance.now();
-function gameloop(timestamp) {
-    let deltaTime = timestamp - previousTimestamp;
-
-    if (deltaTime > fps(FPS)) {
-        previousTimestamp = timestamp;        
-        const frame = Math.floor((timestamp % 1000) / fps(FPS));            
-        render(frame);
-    }
-
-    requestAnimationFrame(gameloop);
-}
-
-requestAnimationFrame(gameloop);
+startGameLoop(render);
