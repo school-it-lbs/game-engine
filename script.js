@@ -7,7 +7,7 @@ const world = {
     collectedItems: 0,
 
     reachable: [
-        -1, 0, 1, 2, 12, 13, 14, 24, 25, 26, 36, 37, 38, 39, 40, 41, 42, 43,
+        -1, 0, 1, 2, 12, 13, 14, 24, 25, 26, 29, 36, 37, 38, 39, 40, 41, 42, 43,
         69, 74, 78, 85, 86, 87, 89, 90, 91, 93, 94, 95, 103, 105, 106, 107,
         109, 115, 116, 117, 118, 119, 123, 124, 127, 128, 129, 130, 131
     ],
@@ -17,8 +17,16 @@ const world = {
     teleport: function(character){
         this.currentLevel.teleport(character);
 
-        if (character.posX == 0 && character.posY == 0) {
+        if (this.currentLevel == level1 && character.posX == 0 && character.posY == 0) {
             this.currentLevel = level2;
+        }
+		
+		if (this.currentLevel == level1 && character.posX == 1 && character.posY == 0) {
+            this.currentLevel = level3;
+        }
+		
+		if (this.currentLevel == level2 && character.posX == 4 && character.posY == 4) {
+            this.currentLevel = level1;
         }
     },
 
