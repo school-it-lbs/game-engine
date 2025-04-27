@@ -4,6 +4,8 @@ const TILES_PER_ROW = 12;   // also defined by tileset (we ignore row number)
 const CANVAS_SIZE = 640;
 const NUMBER_OF_TILES = 16; //8
 
+const FPS = 20;
+
 const SCALE = CANVAS_SIZE / NUMBER_OF_TILES;
 
 
@@ -44,4 +46,16 @@ const character = {
 
 const fps = function(n) {
     return 1000 / n;
+}
+
+const isFullAnimationSec = function(frame){
+    return frame % (FPS/1) == 0;
+}
+
+const isHalfAnimationSec = function(frame){
+    return frame % (FPS/2) == 0;
+}
+
+const isQuarterAnimationSec = function(frame){
+    return frame % (FPS/4) == 0;
 }

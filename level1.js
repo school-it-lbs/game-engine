@@ -28,7 +28,7 @@ const level1 = {
         [ -1,  -1,  -1,  43,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  43,  43,  -1,  -1,   0],
         [ -1,  -1,  -1,  43,  43,  43,  43,  43,  43,  43,  43,  43,  43,  -1,  -1,   0],
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  92,  -1,  -1,  -1,  -1,  -1,  -1,   0],
-        [  1,   1,  -1,  -1,   1,  -1,  -1,  -1, 104,  -1,  -1,  -1,  -1,  -1,  -1,   0],
+        [  1,   1,  -1,  -1,   1, 136,  -1,  -1, 104,  -1,  -1,  -1,  -1,  -1,  -1,   0],
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 131,  -1,  -1,  -1,  -1,  -1,   0],
         [ -1,  52,  53,  55,  53,  54,  -1,  -1,  -1,  -1,  -1,  44,  45,  45,  45,  46],
         [ -1,  64,  65,  65,  67,  66,  -1,  -1,  -1,  -1,  -1,  56,  -1,  -1,  94,  58],
@@ -37,8 +37,18 @@ const level1 = {
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  30,  32,  -1,  -1,  -1,  -1,  -1,  -1,   0],
     ],
 
-    animation: function(){
-        this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; 
+    animation: function(frame){
+        if(isQuarterAnimationSec(frame)){
+            this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; 
+        }
+
+        if(isFullAnimationSec(frame)){
+            this.main[9][5] = this.main[9][5] === 136 ? 135 : 136; 
+        }
+
+        if(isHalfAnimationSec(frame)){
+            this.main[10][9] = this.main[10][9] === 131 ? -1 : 131; 
+        }
     },
 
     teleport: function(character){
@@ -49,6 +59,14 @@ const level1 = {
 
         if(character.posX == 11 && character.posY == 2){
             character.move(11,6);             
+        }
+
+        if (character.posX == 0 && character.posY == 0) {
+            world.jumpToLevel(2);            
+        }
+
+        if (character.posX == 1 && character.posY == 0) {
+            world.jumpToLevel(3);
         }
     }
 };

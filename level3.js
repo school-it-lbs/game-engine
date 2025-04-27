@@ -37,7 +37,7 @@ const level3 = {
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1],
     ],
 
-    animation: function(){
+    animation: function(frame){
         return;
     },
 

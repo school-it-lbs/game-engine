@@ -1,8 +1,17 @@
 // load sound
 const sfx = document.querySelector("#sfx");
 
+
+// world variables
+// -------------------------------------------------------------------
 const world = {
+    levels:[level1, level2, level3],
+
     currentLevel: level1,
+
+    jumpToLevel: function(levelId){
+        this.currentLevel = this.levels[levelId - 1];
+    },
 
     collectedItems: 0,
 
@@ -14,22 +23,6 @@ const world = {
 
     collectable: [94],
 
-    teleport: function(character){
-        this.currentLevel.teleport(character);
-
-        if (this.currentLevel == level1 && character.posX == 0 && character.posY == 0) {
-            this.currentLevel = level2;
-        }
-		
-		if (this.currentLevel == level1 && character.posX == 1 && character.posY == 0) {
-            this.currentLevel = level3;
-        }
-		
-		if (this.currentLevel == level2 && character.posX == 4 && character.posY == 4) {
-            this.currentLevel = level1;
-        }
-    },
-
     showGrid: false,
     toggleGrid: function() {
         this.showGrid = !this.showGrid;
@@ -37,18 +30,29 @@ const world = {
 }
 
 
-function render() {
+
+// render
+// -------------------------------------------------------------------
+function renderText(){
+    drawText(world.collectedItems == 4 ? "You win!" : world.collectedItems, 10, 50, "#ffffff");
+}
+
+
+function render(frame) {
     clearCanvas();
+    world.currentLevel.animation(frame);
     renderMap(world.currentLevel.background);
     renderMap(world.currentLevel.main);
     renderCharacter();
     if(world.showGrid){
         renderGrid();
     }
-    drawText(world.collectedItems == 4 ? "You win!" : world.collectedItems);
+    renderText();
 }
 
 
+// input events
+// -------------------------------------------------------------------
 document.addEventListener('click', (e) => {    
     console.log(Math.floor(e.offsetX / SCALE));
     console.log(Math.floor(e.offsetY / SCALE));
@@ -95,26 +99,20 @@ document.addEventListener('keydown', (e) => {
         sfx.play();
     }
     
-    world.teleport(character);
+    world.currentLevel.teleport(character);
 });
 
 
-
+// game loop
+// -------------------------------------------------------------------
 let previousTimestamp = performance.now();
-let previousAnimation = previousTimestamp;
-
 function gameloop(timestamp) {
     let deltaTime = timestamp - previousTimestamp;
 
-    if (deltaTime > fps(30)) {
-        previousTimestamp = timestamp;
-
-        if (timestamp - previousAnimation > fps(2)) {
-            previousAnimation = timestamp;
-            world.currentLevel.animation();
-        }
-
-        render();
+    if (deltaTime > fps(FPS)) {
+        previousTimestamp = timestamp;        
+        const frame = Math.floor((timestamp % 1000) / fps(FPS));            
+        render(frame);
     }
 
     requestAnimationFrame(gameloop);

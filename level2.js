@@ -37,11 +37,13 @@ const level2 = {
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1],
     ],
 
-    animation: function(){
+    animation: function(frame){
         return;
     },
 
     teleport: function(character){    
-        return;
+        if (character.posX == 4 && character.posY == 4) {
+            world.jumpToLevel(1);  
+        }
     }
 };

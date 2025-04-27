@@ -7,7 +7,6 @@ ctx.imageSmoothingEnabled = false;
 
 // load tileset
 const tileset = document.querySelector("#tileset");
-const characterImage = document.querySelector("#character");
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -31,23 +30,22 @@ function renderGrid() {
     }
 }
 
-function renderTile(tileX, tileY, posX, posY) {
+function renderCharacter() {    
+    renderTileById(132, character.posX, character.posY);
+}
+
+function renderTileById(id, posX, posY){
+    let tileX = id % TILES_PER_ROW;
+    let tileY = Math.floor(id / TILES_PER_ROW);
     drawTile(tileset, TILE_SIZE * tileX, TILE_SIZE * tileY, posX, posY);
 }
 
-function renderCharacter() {
-    drawTile(characterImage, 0, 0, character.posX, character.posY);
-}
 
 function renderMap(map) {
     for (let [col, row] of allCellsIterator()) {
         if (map[row] != undefined && map[row][col] != undefined) {
             let tile = map[row][col];
-
-            let tileX = tile % TILES_PER_ROW;
-            let tileY = Math.floor(tile / TILES_PER_ROW);
-
-            renderTile(tileX, tileY, col, row);
+            renderTileById(tile, col, row);
         }
     }
 }
@@ -60,7 +58,8 @@ function* allCellsIterator() {
     }
 }
 
-function drawText(text){
+function drawText(text, posX, posY, color){
     ctx.font = "48px serif";
-    ctx.fillText(text, 10, 50);
+    ctx.fillStyle = color;
+    ctx.fillText(text, posX, posY);
 }

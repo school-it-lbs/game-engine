@@ -30,15 +30,20 @@ tileSelection.addEventListener("click", (e) => {
     selectedTile = selectedX + (selectedY * 12);
 });
 
+
 document.querySelector("button").addEventListener("click", () => {    
     background = JSON.parse(backgroundTextarea.value);
     main = JSON.parse(mainTextarea.value);
     render();
 });
 
+function outputFormat(arrayName){
+    return JSON.stringify(arrayName).replaceAll("],", "],\n");
+}
+
 function output(){
-    backgroundTextarea.value = JSON.stringify(background);
-    mainTextarea.value = JSON.stringify(main);
+    backgroundTextarea.value = outputFormat(background);
+    mainTextarea.value = outputFormat(main);
 }
 
 function render() {

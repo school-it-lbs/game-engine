@@ -18,8 +18,8 @@ img{
 
 body.editor img{
     display: block;
-    width: 384px;
-    height: 340px;
+    width: calc(192px * 2);
+    height: calc(192px * 2);
     margin-right: 50px;
 }
 
@@ -29,4 +29,12 @@ body.editor{
 
 body.editor textarea{
     height: 50px;
+}
+
+body.editor div{
+    padding-top: 20px;
+}
+
+body.editor canvas{
+    margin-top: 0;
 }
