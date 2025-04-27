@@ -31,7 +31,7 @@ function renderGrid() {
 }
 
 function renderCharacter() {    
-    renderTileById(132, character.posX, character.posY);
+    renderTileById(132, 1, 1);
 }
 
 function renderTileById(id, posX, posY){
@@ -43,16 +43,16 @@ function renderTileById(id, posX, posY){
 
 function renderMap(map) {
     for (let [col, row] of allCellsIterator()) {
-        if (map[row] != undefined && map[row][col] != undefined) {
-            let tile = map[row][col];
+        if (map[row + character.posY] != undefined && map[row + character.posY][col + character.posX] != undefined) {
+            let tile = map[row + character.posY][col + character.posX];
             renderTileById(tile, col, row);
         }
     }
 }
 
 function* allCellsIterator() {
-    for (let row = 0; row < NUMBER_OF_TILES; ++row) {
-        for (let col = 0; col < NUMBER_OF_TILES; ++col) {
+    for (let row = 0; row < 3; ++row) {
+        for (let col = 0; col < 3; ++col) {
             yield [col, row];
         }
     }
