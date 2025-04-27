@@ -10,8 +10,8 @@ const SCALE = CANVAS_SIZE / NUMBER_OF_TILES;
 
 
 const character = {
-    posX: 1,
-    posY: 1,
+    posX: 0,
+    posY: 0,
 
     moveLeft: function(){
         if(this.posX > 0){

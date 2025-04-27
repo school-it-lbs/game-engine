@@ -111,5 +111,5 @@ document.addEventListener('keydown', (e) => {
 
 });
 
-
+character.move(2,2); // starting position
 startGameLoop(render);
