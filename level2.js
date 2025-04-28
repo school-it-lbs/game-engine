@@ -37,8 +37,17 @@ const level2 = {
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1],
     ],
 
-    animation: function(frame){
-        return;
+    animationEnemy: new tileAnimation(500),
+    enemyPositionX: 0,
+
+    animation: function(){
+        this.animationEnemy.animate(() => {
+            // note that we are overwriting main. anything in the enemies path will be reset to -1 
+            this.main[10][this.enemyPositionX] = -1;
+            this.enemyPositionX = (this.enemyPositionX + 1) % NUMBER_OF_TILES;
+            this.main[10][this.enemyPositionX] = 136;
+        });
+
     },
 
     teleport: function(character){    

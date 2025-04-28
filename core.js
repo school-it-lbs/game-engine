@@ -79,9 +79,8 @@ function startGameLoop(callback){
         let deltaTime = timestamp - previousTimestamp;
     
         if (deltaTime > fps(FPS)) {
-            previousTimestamp = timestamp;        
-            const frame = Math.floor((timestamp % 1000) / fps(FPS));            
-            callback(frame);
+            previousTimestamp = timestamp;
+            callback();
         }
     
         requestAnimationFrame(gameloop);

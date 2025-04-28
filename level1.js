@@ -37,18 +37,14 @@ const level1 = {
         [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  30,  32,  -1,  -1,  -1,  -1,  -1,  -1,   0],
     ],
 
-    animation: function(frame){
-        if(isQuarterAnimationSec(frame)){
-            this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; 
-        }
+    animationDoor: new tileAnimation(250),
+    animationNpc: new tileAnimation(1000),
+    animationBucket: new tileAnimation(500),
 
-        if(isFullAnimationSec(frame)){
-            this.main[9][5] = this.main[9][5] === 136 ? 135 : 136; 
-        }
-
-        if(isHalfAnimationSec(frame)){
-            this.main[10][9] = this.main[10][9] === 131 ? -1 : 131; 
-        }
+    animation: function(){    
+        this.animationDoor.animate(() => { this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; });
+        this.animationNpc.animate(() => { this.main[9][5] = this.main[9][5] === 136 ? 135 : 136; });
+        this.animationBucket.animate(() => { this.main[10][9] = this.main[10][9] === 131 ? -1 : 131;  });       
     },
 
     teleport: function(character){

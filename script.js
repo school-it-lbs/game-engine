@@ -38,9 +38,9 @@ function renderText(){
 }
 
 
-function render(frame) {
+function render() {
     clearCanvas();
-    world.currentLevel.animation(frame);
+    world.currentLevel.animation();
     renderMap(world.currentLevel.background);
     renderMap(world.currentLevel.main);
     renderCharacter();

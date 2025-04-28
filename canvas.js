@@ -83,3 +83,15 @@ function drawTextWithBackground(text, posX, posY) {
     ctx.fillText(text, posX, posY);
     ctx.restore();
 }
+
+function tileAnimation(delayInSeconds){
+    let previousTime = performance.now();
+
+    this.animate = function(callback){
+        let deltaTime = performance.now() - previousTime;
+        if(deltaTime > delayInSeconds){
+            callback();
+            previousTime = performance.now();;
+        }   
+    }
+}
