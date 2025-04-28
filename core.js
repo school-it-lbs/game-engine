@@ -1,4 +1,5 @@
 const TILE_SIZE = 16;       // fixed value defined by tileset
+const TILE_GAP = 0;         // gap between tiles
 const TILES_PER_ROW = 12;   // also defined by tileset (we ignore row number)
 
 const CANVAS_SIZE = 640;

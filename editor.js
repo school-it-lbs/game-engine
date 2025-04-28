@@ -29,8 +29,8 @@ const computedStyleTileSet = getComputedStyle(tileSelection);
 tileSelection.style.width = (computedStyleTileSet.width.replace("px","") * scaleFactor) + "px";
 
 tileSelection.addEventListener("click", (e) => {
-    const selectedX = Math.floor(e.offsetX / (TILE_SIZE * scaleFactor));
-    const selectedY = Math.floor(e.offsetY / (TILE_SIZE * scaleFactor));    
+    const selectedX = Math.floor(e.offsetX / ((TILE_SIZE + TILE_GAP) * scaleFactor));
+    const selectedY = Math.floor(e.offsetY / ((TILE_SIZE + TILE_GAP) * scaleFactor));    
     selectedTile = selectedX + (selectedY * TILES_PER_ROW);
 });
 

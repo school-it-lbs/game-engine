@@ -13,7 +13,7 @@ function clearCanvas() {
 }
 
 function drawTile(imageSrc, tileX, tileY, posX, posY) {
-    ctx.drawImage(imageSrc, tileX, tileY, TILE_SIZE, TILE_SIZE, posX * SCALE, posY * SCALE, SCALE, SCALE);
+    ctx.drawImage(imageSrc, tileX * (TILE_SIZE + TILE_GAP), tileY * (TILE_SIZE  + TILE_GAP), TILE_SIZE, TILE_SIZE, posX * SCALE, posY * SCALE, SCALE, SCALE);
 }
 
 function drawBox(x, y) {
@@ -37,7 +37,7 @@ function renderCharacter() {
 function renderTileById(id, posX, posY){
     let tileX = id % TILES_PER_ROW;
     let tileY = Math.floor(id / TILES_PER_ROW);
-    drawTile(tileset, TILE_SIZE * tileX, TILE_SIZE * tileY, posX, posY);
+    drawTile(tileset, tileX, tileY, posX, posY);
 }
 
 
