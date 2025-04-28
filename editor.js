@@ -24,10 +24,14 @@ const backgroundTextarea = document.querySelector("#backgroundTextarea");
 const mainTextarea = document.querySelector("#mainTextarea");
 
 const tileSelection = document.querySelector("#tileset");
+const scaleFactor = 2;
+const computedStyleTileSet = getComputedStyle(tileSelection);
+tileSelection.style.width = (computedStyleTileSet.width.replace("px","") * scaleFactor) + "px";
+
 tileSelection.addEventListener("click", (e) => {
-    const selectedX = Math.floor(e.offsetX / 32);
-    const selectedY = Math.floor(e.offsetY / 32);    
-    selectedTile = selectedX + (selectedY * 12);
+    const selectedX = Math.floor(e.offsetX / (TILE_SIZE * scaleFactor));
+    const selectedY = Math.floor(e.offsetY / (TILE_SIZE * scaleFactor));    
+    selectedTile = selectedX + (selectedY * TILES_PER_ROW);
 });
 
 

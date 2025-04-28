@@ -18,8 +18,6 @@ img{
 
 body.editor img{
     display: block;
-    width: calc(192px * 2);
-    height: calc(192px * 2);
     margin-right: 50px;
 }
 
