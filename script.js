@@ -26,7 +26,9 @@ const world = {
     showGrid: false,
     toggleGrid: function() {
         this.showGrid = !this.showGrid;
-    }
+    },
+
+    gameOver: false
 }
 
 
@@ -34,7 +36,15 @@ const world = {
 // render
 // -------------------------------------------------------------------
 function renderText(){
-    drawText(world.collectedItems == 4 ? "You win!" : world.collectedItems, 10, 50, "#ffffff");
+    let text = world.collectedItems;
+    if(world.gameOver){
+        text = "GAME OVER";
+    }
+    else if(world.collectedItems == 4){
+        text = "You win!";
+    }
+
+    drawText(text, 10, 50, "#ffffff");
 }
 
 

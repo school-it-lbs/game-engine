@@ -46,6 +46,11 @@ const level2 = {
             this.main[10][this.enemyPositionX] = -1;
             this.enemyPositionX = (this.enemyPositionX + 1) % NUMBER_OF_TILES;
             this.main[10][this.enemyPositionX] = 136;
+
+            if(character.posX == this.enemyPositionX && character.posY == 10){
+                world.gameOver = true;
+            }                
+            
         });
 
     },
