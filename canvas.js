@@ -44,8 +44,8 @@ function renderTileById(id, posX, posY){
 
 
 function renderMap(map) {
-    const y = character.posX - 2; //change depending on number of tiles
-    const x = character.posY - 2;
+    const y = character.posX - Math.floor(VIEWPORT_SIZE / 2); //change depending on number of tiles
+    const x = character.posY - Math.floor(VIEWPORT_SIZE / 2);
 
     
 
@@ -53,8 +53,8 @@ function renderMap(map) {
     // renderTileById(map[x+1][y], 0, 1);
     // renderTileById(map[x+2][y], 0, 2);
 
-    for(let i = 0; i < 5; ++i){
-        for(let j = 0; j < 5; ++j){
+    for(let i = 0; i < VIEWPORT_SIZE; ++i){
+        for(let j = 0; j < VIEWPORT_SIZE; ++j){
             let tile = -1;
 
             let col = map[x+j];

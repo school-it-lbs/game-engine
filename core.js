@@ -8,12 +8,14 @@ const NUMBER_OF_TILES = 16; //8: zoom in
 const FPS = 20;
 
 //const SCALE = CANVAS_SIZE / NUMBER_OF_TILES;
-const SCALE = CANVAS_SIZE / 5;
+const VIEWPORT_SIZE = 5;
+const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
+
 
 
 const character = {
-    posX: 2,
-    posY: 2,
+    posX: 4,
+    posY: 4,
 
     moveLeft: function(){
         if(this.posX > 0){
