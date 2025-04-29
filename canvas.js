@@ -31,7 +31,7 @@ function renderGrid() {
 }
 
 function renderCharacter() {    
-    renderTileById(132, 1, 1);
+    renderTileById(132, 2, 2);
 }
 
 function renderTileById(id, posX, posY){
@@ -42,17 +42,44 @@ function renderTileById(id, posX, posY){
 
 
 function renderMap(map) {
-    for (let [col, row] of allCellsIterator()) {
-        if (map[row + character.posY] != undefined && map[row + character.posY][col + character.posX] != undefined) {
-            let tile = map[row + character.posY][col + character.posX];
-            renderTileById(tile, col, row);
+    const y = character.posX - 2; //change depending on number of tiles
+    const x = character.posY - 2;
+
+    
+
+    // renderTileById(map[x][y], 0, 0);
+    // renderTileById(map[x+1][y], 0, 1);
+    // renderTileById(map[x+2][y], 0, 2);
+
+    for(let i = 0; i < 5; ++i){
+        for(let j = 0; j < 5; ++j){
+            let tile = -1;
+
+            let col = map[x+j];
+            
+            if(col != undefined){
+                let row = col[y+i];
+                if(row != undefined){
+                    tile = row;
+                }
+            }
+            
+            renderTileById(tile, i, j);
         }
     }
+
+
+    // for (let [col, row] of allCellsIterator()) {
+    //     if (map[row] != undefined && map[row][col] != undefined) {
+    //         let tile = map[row][col];
+    //         renderTileById(tile, col, row);
+    //     }
+    // }
 }
 
 function* allCellsIterator() {
-    for (let row = 0; row < 3; ++row) {
-        for (let col = 0; col < 3; ++col) {
+    for (let row = 0; row < NUMBER_OF_TILES; ++row) {
+        for (let col = 0; col < NUMBER_OF_TILES; ++col) {
             yield [col, row];
         }
     }
