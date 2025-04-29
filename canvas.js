@@ -10,6 +10,8 @@ const tileset = document.querySelector("#tileset");
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "grey";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawTile(imageSrc, tileX, tileY, posX, posY) {
