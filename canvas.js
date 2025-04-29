@@ -33,7 +33,7 @@ function renderGrid() {
 }
 
 function renderCharacter() {    
-    renderTileById(132, 2, 2);
+    renderTileById(132, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
 }
 
 function renderTileById(id, posX, posY){
@@ -44,8 +44,8 @@ function renderTileById(id, posX, posY){
 
 
 function renderMap(map) {
-    const y = character.posX - Math.floor(VIEWPORT_SIZE / 2); //change depending on number of tiles
-    const x = character.posY - Math.floor(VIEWPORT_SIZE / 2);
+    const y = character.posX - VIEWPORT_OFFSET; 
+    const x = character.posY - VIEWPORT_OFFSET;
 
     
 
