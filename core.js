@@ -8,7 +8,7 @@ const NUMBER_OF_TILES = 16;//16; //8: zoom in
 const FPS = 20;
 
 //const SCALE = CANVAS_SIZE / NUMBER_OF_TILES;
-const VIEWPORT_SIZE = 9;
+const VIEWPORT_SIZE = 12;
 const VIEWPORT_OFFSET = Math.floor(VIEWPORT_SIZE / 2);
 const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
 
