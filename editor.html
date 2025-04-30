@@ -12,12 +12,17 @@
 <body class="editor">    
     <div><img id="tileset" class="editor" src="images/tilemap_packed.png" alt="tileset"/></div>
     <div>
-        <label><input type="radio" value="background" name="layer" checked />background</label>
-        <label><input type="radio" value="main"  name="layer" />main</label>
+        <label><input type="radio" value="background" name="layer" checked /> background</label>
+        <label><input type="radio" value="main"  name="layer" /> main</label>
+    </div>
+    <div>
+        <label><input type="text" value="16" id="map-size-x" autocomplete="off"/> Map size X</label>
+        <label><input type="text" value="16" id="map-size-y" autocomplete="off"/> Map size Y</label>
+        <button id="update">update</button>
     </div>
     <div><canvas id="map"></canvas></div>
     <textarea id="backgroundTextarea"></textarea>
     <textarea id="mainTextarea"></textarea>
-    <button>load</button>
+    <button id="load">load</button>
 </body>
 </html>

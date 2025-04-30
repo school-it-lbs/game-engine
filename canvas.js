@@ -26,8 +26,8 @@ function drawBox(x, y) {
     ctx.closePath();
 }
 
-function renderGrid() {
-    for (let [col, row] of allCellsIterator()) {
+function renderGrid(x, y) {
+    for (let [col, row] of allCellsIterator(x, y)) {
         drawBox(row, col);
     }
 }
@@ -47,12 +47,6 @@ function renderMap(map) {
     const y = character.posX - VIEWPORT_OFFSET; 
     const x = character.posY - VIEWPORT_OFFSET;
 
-    
-
-    // renderTileById(map[x][y], 0, 0);
-    // renderTileById(map[x+1][y], 0, 1);
-    // renderTileById(map[x+2][y], 0, 2);
-
     for(let i = 0; i < VIEWPORT_SIZE; ++i){
         for(let j = 0; j < VIEWPORT_SIZE; ++j){
             let tile = -1;
@@ -69,19 +63,22 @@ function renderMap(map) {
             renderTileById(tile, i, j);
         }
     }
-
-
-    // for (let [col, row] of allCellsIterator()) {
-    //     if (map[row] != undefined && map[row][col] != undefined) {
-    //         let tile = map[row][col];
-    //         renderTileById(tile, col, row);
-    //     }
-    // }
 }
 
-function* allCellsIterator() {
-    for (let row = 0; row < world.currentLevel.main.length; ++row) {
-        for (let col = 0; col < world.currentLevel.main[0].length; ++col) {
+
+function renderMapComplete(map, x, y) {
+    for (let [col, row] of allCellsIterator(x, y)) {
+        if (map[row] != undefined && map[row][col] != undefined) {
+            let tile = map[row][col];
+            renderTileById(tile, col, row);
+        }
+    }
+}
+
+
+function* allCellsIterator(x, y) {
+    for (let row = 0; row < x; ++row) {
+        for (let col = 0; col < y; ++col) {
             yield [col, row];
         }
     }
