@@ -32,8 +32,8 @@ function renderGrid(x, y) {
     }
 }
 
-function renderCharacter() {    
-    renderTileById(132, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+function renderCharacter(x, y) {    
+    renderTileById(132, x, y);
 }
 
 function renderTileById(id, posX, posY){

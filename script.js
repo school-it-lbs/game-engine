@@ -51,9 +51,17 @@ function renderText(){
 function render() {
     clearCanvas();
     world.currentLevel.animation();
-    renderMap(world.currentLevel.background);
-    renderMap(world.currentLevel.main);
-    renderCharacter();
+    // if(USE_FIXED_VIEW){
+    //     renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, 0);
+    //     renderMapComplete(world.currentLevel.main), 0, VIEWPORT_SIZE;
+    //     renderCharacter(character.posX, character.posY);        
+    // }
+    // else{
+        renderMap(world.currentLevel.background);
+        renderMap(world.currentLevel.main);
+        renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+    //}
+    
     if(world.showGrid){
         renderGrid(world.currentLevel.main.length, world.currentLevel.main[0].length);
     }
@@ -130,5 +138,5 @@ document.addEventListener('keydown', (e) => {
 
 });
 
-character.move(2,2); // starting position
+character.move(VIEWPORT_OFFSET, VIEWPORT_OFFSET); // starting position
 startGameLoop(render);
