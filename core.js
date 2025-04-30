@@ -3,11 +3,10 @@ const TILE_GAP = 0;         // gap between tiles
 const TILES_PER_ROW = 12;   // also defined by tileset (we ignore row number)
 
 const CANVAS_SIZE = 900;//640;
-const NUMBER_OF_TILES = 16;//16; //8: zoom in
+
 
 const FPS = 20;
 
-//const SCALE = CANVAS_SIZE / NUMBER_OF_TILES;
 const VIEWPORT_SIZE = 15;
 const VIEWPORT_OFFSET = Math.floor(VIEWPORT_SIZE / 2);
 const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
@@ -25,7 +24,7 @@ const character = {
     },
 
     moveRight: function(){
-        if(this.posX < NUMBER_OF_TILES - 1){
+        if(this.posX < world.currentLevel.main[0].length - 1){
             this.posX += 1;
         }
     },
@@ -37,7 +36,7 @@ const character = {
     },
 
     moveDown: function(){        
-        if(this.posY < NUMBER_OF_TILES - 1){
+        if(this.posY < world.currentLevel.main.length - 1){
             this.posY += 1;
         }
     },

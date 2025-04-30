@@ -80,8 +80,8 @@ function renderMap(map) {
 }
 
 function* allCellsIterator() {
-    for (let row = 0; row < NUMBER_OF_TILES; ++row) {
-        for (let col = 0; col < NUMBER_OF_TILES; ++col) {
+    for (let row = 0; row < world.currentLevel.main.length; ++row) {
+        for (let col = 0; col < world.currentLevel.main[0].length; ++col) {
             yield [col, row];
         }
     }

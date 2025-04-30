@@ -1,5 +1,7 @@
 let selectedTile = -1;
 
+const NUMBER_OF_TILES = 16;
+
 function populateArray(initialValue){
     const newArray = [];
     
