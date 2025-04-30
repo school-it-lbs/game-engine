@@ -72,9 +72,18 @@ document.addEventListener('click', (e) => {
     }     
 });
 
+let keyDownDelay;
 
 document.addEventListener('keydown', (e) => {
-    if (e.repeat) return;
+    if (e.repeat)
+    {
+        if(performance.now() - keyDownDelay < 100) 
+        {
+            return;
+        }
+    }
+
+    keyDownDelay = performance.now();
 
     if (e.code == 'Space') {
         world.toggleGrid();
