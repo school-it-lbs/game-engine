@@ -44,19 +44,19 @@ function renderTileById(id, posX, posY){
 
 
 function renderMap(map) {
-    const y = character.posX - VIEWPORT_OFFSET; 
-    const x = character.posY - VIEWPORT_OFFSET;
+    const x = character.posX - VIEWPORT_OFFSET; 
+    const y = character.posY - VIEWPORT_OFFSET;
 
     for(let i = 0; i < VIEWPORT_SIZE; ++i){
         for(let j = 0; j < VIEWPORT_SIZE; ++j){
             let tile = -1;
 
-            let col = map[x+j];
+            let row = map[y+j];
             
-            if(col != undefined){
-                let row = col[y+i];
-                if(row != undefined){
-                    tile = row;
+            if(row != undefined){
+                let col = row[x+i];
+                if(col != undefined){
+                    tile = col;
                 }
             }
             

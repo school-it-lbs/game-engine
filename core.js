@@ -56,8 +56,8 @@ const isNear = function(characterX, characterY, npcX, npcY){
 }
 
 
-const isCharacterNear = function(character, row, col){
-    return isNear(character.posX, character.posY, col, row); //note that row / col are switched
+const isCharacterNear = function(character, npcX, npcY){
+    return isNear(character.posX, character.posY, npcX, npcY); 
 }
 
 

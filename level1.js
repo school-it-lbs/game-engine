@@ -70,7 +70,7 @@ const level1 = {
 
     interact: function(character){    
         this.isNpcSpeaking = false;
-        if(isCharacterNear(character, 9, 5)){
+        if(isCharacterNear(character, 5, 9)){
             this.isNpcSpeaking = true;
         }        
     },
