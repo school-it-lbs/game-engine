@@ -51,16 +51,17 @@ function renderText(){
 function render() {
     clearCanvas();
     world.currentLevel.animation();
-    // if(USE_FIXED_VIEW){
-    //     renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, 0);
-    //     renderMapComplete(world.currentLevel.main), 0, VIEWPORT_SIZE;
-    //     renderCharacter(character.posX, character.posY);        
-    // }
-    // else{
+
+    if(USE_FIXED_VIEW){
+        renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        renderCharacter(character.posX, character.posY);  
+    
+    }else{
         renderMap(world.currentLevel.background);
         renderMap(world.currentLevel.main);
         renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
-    //}
+    }
     
     if(world.showGrid){
         renderGrid(world.currentLevel.main.length, world.currentLevel.main[0].length);
