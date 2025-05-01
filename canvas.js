@@ -67,13 +67,18 @@ function renderMap(map) {
 
 function renderOverlay(textData){   
     if(textData){
-        const y = (character.posX - VIEWPORT_OFFSET) * -1; 
-        const x = (character.posY - VIEWPORT_OFFSET) * -1;
+        let offsetX = (character.posX - VIEWPORT_OFFSET) * -1; 
+        let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
+
+        if(USE_FIXED_VIEW){
+            offsetX = 0;
+            offsetY = 0;
+        }
     
         if(textData.length > 0)
         {
             const t = textData[0];
-            drawTextWithBackground(t.text, (t.x + y) * SCALE, (t.y + x) * SCALE);
+            drawTextWithBackground(t.text, (t.x + offsetX) * SCALE, (t.y + offsetY) * SCALE);
         }
     }    
 }
