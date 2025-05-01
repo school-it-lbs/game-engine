@@ -65,6 +65,19 @@ function renderMap(map) {
     }
 }
 
+function renderOverlay(textData){   
+    if(textData){
+        const y = (character.posX - VIEWPORT_OFFSET) * -1; 
+        const x = (character.posY - VIEWPORT_OFFSET) * -1;
+    
+        if(textData.length > 0)
+        {
+            const t = textData[0];
+            drawTextWithBackground(t.text, (t.x + y) * SCALE, (t.y + x) * SCALE);
+        }
+    }    
+}
+
 
 function renderMapComplete(map, x, y) {
     for (let [col, row] of allCellsIterator(x, y)) {

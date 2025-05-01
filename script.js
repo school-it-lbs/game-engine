@@ -66,7 +66,8 @@ function render() {
     if(world.showGrid){
         renderGrid(world.currentLevel.main.length, world.currentLevel.main[0].length);
     }
-    world.currentLevel.overlay();
+
+    renderOverlay(world.currentLevel.overlay());
     renderText();
 }
 

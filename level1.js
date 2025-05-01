@@ -75,9 +75,9 @@ const level1 = {
         }        
     },
 
-    overlay: function(){
+    overlay: function(){        
         if(this.isNpcSpeaking){
-            drawTextWithBackground("hi", 215, 330);
-        }        
+            return [{text: "hi", x:5, y:9}];
+        }
     }
 };
