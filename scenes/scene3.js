@@ -39,10 +39,14 @@ class Scene3 extends Scene{
             [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 109, 109, 109, 109, 109, 109],
             [ -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1,  -1, 109, 109, 109, 109, 109,  95],
         ];
+
+        this.portal = new Sprite(4, 4, 29);
+
+        this.sprites = [this.portal]
     }
 
     teleport(character){
-        if (character.posX == 4 && character.posY == 4) {
+        if (character.hasCollided(this.portal)) {
             world.jumpToLevel(1); 
             character.move(15,15);
         }

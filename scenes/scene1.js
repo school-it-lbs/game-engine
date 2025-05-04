@@ -2,6 +2,7 @@ class Scene1 extends Scene {
 
     constructor() {
         super();
+
         this.background = [
             [12, 13, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [43, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -22,9 +23,9 @@ class Scene1 extends Scene {
         ];
 
         this.main = [
-            [29, 29, 13, 13, 14, -1, -1, -1, -1, -1, 96, 97, 97, 97, 98, 0],
+            [-1, -1, 13, 13, 14, -1, -1, -1, -1, -1, 96, 97, 97, 97, 98, 0],
             [24, 25, 40, 25, 26, -1, -1, -1, -1, -1, 108, 109, 109, 109, 110, 17],
-            [36, 37, 37, 37, 38, -1, -1, -1, -1, -1, 108, 103, 109, 109, 110, 94],
+            [36, 37, 37, 37, 38, -1, -1, -1, -1, -1, 108, 109, 109, 109, 110, 94],
             [-1, -1, 43, -1, -1, -1, 94, -1, -1, -1, 120, 121, 121, 121, 122, 0],
             [-1, -1, 43, -1, 1, -1, -1, -1, -1, -1, 125, 111, 112, 126, 126, 0],
             [-1, -1, 43, 43, -1, -1, -1, -1, -1, -1, 126, 123, 124, 125, 126, 0],
@@ -45,29 +46,43 @@ class Scene1 extends Scene {
         this.friendlyNpc.isSpeaking = false;
 
         const door = new Sprite(4, 13, 85);
-        door.setAnimation(250, (s) => { s.tileId = s.tileId === 85 ? 74 : 85; })
+        door.setAnimation(250, (s) => { s.tileId = s.tileId === 85 ? 74 : 85; });
 
         const bucket = new Sprite(9, 10, 131);
-        bucket.setAnimation(500, (s) => { s.tileId = s.tileId === 131 ? -1 : 131; })
+        bucket.setAnimation(500, (s) => { s.tileId = s.tileId === 131 ? -1 : 131; });
 
+        this.portal1 = new Sprite(0, 0, 29);
+        this.portal2 = new Sprite(1, 0, 29);
+        this.ladderDown = new Sprite(11, 2, 103);
+        this.ladderUp1 = new Sprite(11, 5, -1);
+        this.ladderUp2 = new Sprite(12, 5, -1);
 
-        this.sprites = [this.friendlyNpc, door, bucket];
+        this.sprites = [
+            this.friendlyNpc, 
+            door, 
+            bucket, 
+            this.portal1, 
+            this.portal2,
+            this.ladderDown,
+            this.ladderUp1,
+            this.ladderUp2
+        ];
     }
 
     teleport(character) {
-        if ((character.posX == 11 || character.posX == 12) && character.posY == 5) {
+        if (character.hasCollided(this.ladderUp1) || character.hasCollided(this.ladderUp2)) {
             character.move(11, 1);
         }
 
-        if (character.posX == 11 && character.posY == 2) {
+        if (character.hasCollided(this.ladderDown)) {
             character.move(11, 6);
         }
 
-        if (character.posX == 0 && character.posY == 0) {
+        if (character.hasCollided(this.portal1)) {
             world.jumpToLevel(2);
         }
 
-        if (character.posX == 1 && character.posY == 0) {
+        if (character.hasCollided(this.portal2)) {
             world.jumpToLevel(3);
         }
     }

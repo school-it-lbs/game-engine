@@ -26,7 +26,7 @@ class Scene2 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-            [-1, -1, -1, -1, 29, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -46,15 +46,16 @@ class Scene2 extends Scene {
     
             if (character.hasCollided(s)) {
                 world.gameOver = true;
-            }
-    
+            }    
         });
 
-        this.sprites = [enemy];
+        this.portal = new Sprite(4, 4, 29);
+
+        this.sprites = [enemy, this.portal];
     }
 
     teleport(character) {
-        if (character.posX == 4 && character.posY == 4) {
+        if (character.hasCollided(this.portal)) {
             world.jumpToLevel(1);
         }
     }
