@@ -10,7 +10,7 @@ class AnimationDelay {
         const deltaTime = performance.now() - this.previousTime;
         if (deltaTime > this.delayInSeconds) {
             this.callback();
-            this.previousTime = performance.now();;
+            this.previousTime = performance.now();
         }
     }
 }

@@ -42,8 +42,8 @@ class Scene1 extends Scene {
         ];
 
         this.friendlyNpc = new Sprite(5, 9, 135);
-        this.friendlyNpc.setAnimation(1000, (s) => { s.tileId = s.tileId === 136 ? 135 : 136; });
-        this.friendlyNpc.isSpeaking = false;
+        this.friendlyNpc.setAnimation(1000, (s) => { s.tileId = s.tileId === 136 ? 135 : 136; });        
+        this.friendlyNpc.speech = new SpeechBubble("hi", this.friendlyNpc.posX, this.friendlyNpc.posY);
 
         const door = new Sprite(4, 13, 85);
         door.setAnimation(250, (s) => { s.tileId = s.tileId === 85 ? 74 : 85; });
@@ -75,6 +75,11 @@ class Scene1 extends Scene {
             this.ladderUp2,
             ...this.collectables        
         ];
+
+        const sb = new SpeechBubble("test", 10, 10);
+        sb.isVisible = true;
+
+        this.speechBubbles = [this.friendlyNpc.speech, sb];
     }
 
     interaction(character) {
@@ -104,13 +109,7 @@ class Scene1 extends Scene {
 
         if(character.isInteracting){
             character.isInteracting = false;
-            this.friendlyNpc.isSpeaking = character.isNear(this.friendlyNpc);            
-        }
-    }
-
-    overlay() {
-        if (this.friendlyNpc.isSpeaking) {
-            return [{ text: "hi", x: this.friendlyNpc.posX, y: this.friendlyNpc.posY }];
+            this.friendlyNpc.speech.isVisible = character.isNear(this.friendlyNpc);            
         }
     }
 }

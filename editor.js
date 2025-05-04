@@ -79,7 +79,7 @@ document.querySelector("canvas").addEventListener('click', (e) => {
     const row = Math.floor(e.offsetX / SCALE);
     const col = Math.floor(e.offsetY / SCALE);
 
-    // console.log(row + "|" + col);
+    console.log(row + "|" + col);
 
     const map = document.querySelector('input[name="layer"]:checked').value == "background" ? background : main;
 

@@ -85,8 +85,14 @@ function render() {
         sprite.animate();
         painter.renderSprite(sprite);
     });
+    
+    world.currentLevel.speechBubbles.forEach(speech => {        
+        if(speech.isVisible){
+            painter.renderOverlay(speech);
+        }
+    });
 
-    painter.renderOverlay(world.currentLevel.overlay());
+
     renderText();
 }
 

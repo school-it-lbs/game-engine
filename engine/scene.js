@@ -2,6 +2,7 @@ class Scene{
     background = [];
     main = [];
     sprites = [];
+    speechBubbles = [];
 
     get mapSizeX(){
         return this.main.length;
@@ -12,6 +13,4 @@ class Scene{
     }
 
     interaction(character){}
-
-    overlay() {}
 }

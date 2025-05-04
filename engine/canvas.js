@@ -103,8 +103,8 @@ class CanvasPainter {
         }
     }
 
-    renderOverlay(textData) {
-        if (textData) {
+    renderOverlay(speechBubble) {
+        if (speechBubble) {
             let offsetX = (character.posX - VIEWPORT_OFFSET) * -1;
             let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
 
@@ -112,11 +112,8 @@ class CanvasPainter {
                 offsetX = 0;
                 offsetY = 0;
             }
-
-            if (textData.length > 0) {
-                const t = textData[0];
-                this.drawTextWithBackground(t.text, (t.x + offsetX) * SCALE, (t.y + offsetY) * SCALE);
-            }
+            
+            this.drawTextWithBackground(speechBubble.text, (speechBubble.posX + offsetX) * SCALE, (speechBubble.posY + offsetY) * SCALE);            
         }
     }
 
