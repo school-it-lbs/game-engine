@@ -1,6 +1,7 @@
 class Scene{
     background = [];
     main = [];
+    npcList = [];
 
     get mapSizeX(){
         return this.main.length;

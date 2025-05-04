@@ -40,9 +40,8 @@ class CanvasPainter {
         }
     }
 
-    renderCharacter(x, y) {
-        //TODO: change value
-        this.renderTileById(132, x, y);
+    renderCharacter(character, posX, posY) {        
+        this.renderTileById(character.tileId, posX, posY);
     }
 
     renderTileById(id, posX, posY) {
@@ -80,14 +79,28 @@ class CanvasPainter {
         this.ctx.fillStyle = '#fff';
 
         /// get width of text
-        const width = ctx.measureText(text).width;
+        const width = this.ctx.measureText(text).width;
 
         /// draw background rect assuming height of font
-        this.ctx.fillRect(posX, posY, width, parseInt(ctx.font, 10));
+        this.ctx.fillRect(posX, posY, width, parseInt(this.ctx.font, 10));
 
         this.ctx.fillStyle = '#000';
         this.ctx.fillText(text, posX, posY);
         this.ctx.restore();
+    }
+
+    renderNpc(npc) {
+        if (npc) {
+            let offsetX = (character.posX  - VIEWPORT_OFFSET) * -1;
+            let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
+        
+            if (USE_FIXED_VIEW) {
+                offsetX = 0;
+                offsetY = 0;
+            }
+            
+            this.renderCharacter(npc, npc.posX + offsetX, npc.posY + offsetY);
+        }
     }
 
     renderOverlay(textData) {

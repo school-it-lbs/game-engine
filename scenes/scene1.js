@@ -3,8 +3,7 @@ class Scene1 extends Scene {
     animationDoor = new AnimationDelay(250);
     animationNpc = new AnimationDelay(1000);
     animationBucket = new AnimationDelay(500);
-    isNpcSpeaking = false;
-
+    
     constructor() {
         super();
         this.background = [
@@ -36,7 +35,7 @@ class Scene1 extends Scene {
             [-1, -1, -1, 43, -1, -1, -1, -1, -1, -1, -1, 43, 43, -1, -1, 0],
             [-1, -1, -1, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, -1, -1, 0],
             [-1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, 0],
-            [1, 1, -1, -1, 1, 136, -1, -1, 92, -1, -1, -1, -1, -1, -1, 0],
+            [1, 1, -1, -1, 1, 2, -1, -1, 92, -1, -1, -1, -1, -1, -1, 0],
             [-1, -1, -1, -1, -1, -1, -1, -1, 104, 131, -1, -1, -1, -1, -1, 0],
             [-1, 52, 53, 55, 53, 54, -1, -1, -1, -1, -1, 44, 45, 45, 45, 46],
             [-1, 64, 65, 65, 67, 66, -1, -1, -1, -1, -1, 56, -1, -1, 94, 58],
@@ -44,6 +43,10 @@ class Scene1 extends Scene {
             [1, -1, -1, -1, -1, -1, -1, 6, 8, -1, -1, 68, 69, 45, 45, 70],
             [-1, -1, -1, -1, -1, -1, -1, 30, 32, -1, -1, -1, -1, -1, -1, 0],
         ];
+
+        this.friendlyNpc = new Character(5, 9, 135);
+        this.friendlyNpc.isSpeaking = false;
+        this.npcList.push(this.friendlyNpc);
     }
 
     teleport(character) {
@@ -65,21 +68,22 @@ class Scene1 extends Scene {
     }
 
     animation() {
+        
         this.animationDoor.animate(() => { this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; });
-        this.animationNpc.animate(() => { this.main[9][5] = this.main[9][5] === 136 ? 135 : 136; });
+        this.animationNpc.animate(() => { this.friendlyNpc.tileId = this.friendlyNpc.tileId === 136 ? 135 : 136; });
         this.animationBucket.animate(() => { this.main[10][9] = this.main[10][9] === 131 ? -1 : 131; });
     }
 
     interact(character) {
-        this.isNpcSpeaking = false;
-        if (character.isNear(5, 9)) {
-            this.isNpcSpeaking = true;
+        this.friendlyNpc.isSpeaking = false;
+        if (character.isNear(this.friendlyNpc.posX, this.friendlyNpc.posY)) {
+            this.friendlyNpc.isSpeaking = true;
         }
     }
 
     overlay() {
-        if (this.isNpcSpeaking) {
-            return [{ text: "hi", x: 5, y: 9 }];
+        if (this.friendlyNpc.isSpeaking) {
+            return [{ text: "hi", x: this.friendlyNpc.posX, y: this.friendlyNpc.posY }];
         }
     }
 }

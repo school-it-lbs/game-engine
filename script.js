@@ -7,7 +7,7 @@ const level3 = new Scene3();
 
 const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, "#tileset");
 
-const character = new Character(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+const character = new Character(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
 const game = new Game();
 
@@ -64,17 +64,21 @@ function render() {
     if (USE_FIXED_VIEW) {
         painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
         painter.renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
-        painter.renderCharacter(character.posX, character.posY);
+        painter.renderCharacter(character, character.posX, character.posY);
 
     } else {
         painter.renderMap(world.currentLevel.background);
         painter.renderMap(world.currentLevel.main);
-        painter.renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+        painter.renderCharacter(character, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
     }
 
     if (world.showGrid) {
         painter.renderGrid(world.currentLevel.mapSizeX, world.currentLevel.mapSizeY);
     }
+
+    world.currentLevel.npcList.forEach(npc => {
+        painter.renderNpc(npc);
+    });
 
     painter.renderOverlay(world.currentLevel.overlay());
     renderText();
@@ -111,19 +115,28 @@ document.addEventListener('keydown', (e) => {
     const previousPositionY = character.posY;
 
     if (e.code == 'KeyW' || e.code == 'ArrowUp') {
-        character.moveUp();
+        if(character.posY > 0){
+            character.moveUp();
+        }        
     }
 
     if (e.code == 'KeyS' || e.code == 'ArrowDown') {
-        character.moveDown();
+        if(character.posY < world.currentLevel.mapSizeX - 1){
+            character.moveDown();
+        }        
     }
 
     if (e.code == 'KeyA' || e.code == 'ArrowLeft') {
-        character.moveLeft();
+        if(character.posX > 0)
+        {
+            character.moveLeft();
+        }        
     }
 
     if (e.code == 'KeyD' || e.code == 'ArrowRight') {
-        character.moveRight();
+        if(character.posX < world.currentLevel.mapSizeY - 1){
+            character.moveRight();
+        }        
     }
 
     if (e.code == 'KeyE') {
