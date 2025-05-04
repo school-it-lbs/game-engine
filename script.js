@@ -77,8 +77,8 @@ function render() {
         painter.renderGrid(world.currentLevel.mapSizeX, world.currentLevel.mapSizeY);
     }
 
-    world.currentLevel.npcList.forEach(npc => {
-        painter.renderNpc(npc);
+    world.currentLevel.sprites.forEach(sprite => {
+        painter.renderSprite(sprite);
     });
 
     painter.renderOverlay(world.currentLevel.overlay());

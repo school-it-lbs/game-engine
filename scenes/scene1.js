@@ -36,17 +36,22 @@ class Scene1 extends Scene {
             [-1, -1, -1, 43, 43, 43, 43, 43, 43, 43, 43, 43, 43, -1, -1, 0],
             [-1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, 0],
             [1, 1, -1, -1, 1, 2, -1, -1, 92, -1, -1, -1, -1, -1, -1, 0],
-            [-1, -1, -1, -1, -1, -1, -1, -1, 104, 131, -1, -1, -1, -1, -1, 0],
+            [-1, -1, -1, -1, -1, -1, -1, -1, 104, -1, -1, -1, -1, -1, -1, 0],
             [-1, 52, 53, 55, 53, 54, -1, -1, -1, -1, -1, 44, 45, 45, 45, 46],
             [-1, 64, 65, 65, 67, 66, -1, -1, -1, -1, -1, 56, -1, -1, 94, 58],
-            [-1, 72, 73, 84, 85, 75, -1, -1, -1, -1, -1, 56, 94, -1, -1, 58],
+            [-1, 72, 73, 84, -1, 75, -1, -1, -1, -1, -1, 56, 94, -1, -1, 58],
             [1, -1, -1, -1, -1, -1, -1, 6, 8, -1, -1, 68, 69, 45, 45, 70],
             [-1, -1, -1, -1, -1, -1, -1, 30, 32, -1, -1, -1, -1, -1, -1, 0],
         ];
 
         this.friendlyNpc = new Sprite(5, 9, 135);
         this.friendlyNpc.isSpeaking = false;
-        this.npcList.push(this.friendlyNpc);
+
+        this.door = new Sprite(4, 13, 85);
+        this.bucket = new Sprite(9, 10, 131);
+
+
+        this.sprites = [this.friendlyNpc, this.door, this.bucket];
     }
 
     teleport(character) {
@@ -69,9 +74,9 @@ class Scene1 extends Scene {
 
     animation() {
         
-        this.animationDoor.animate(() => { this.main[13][4] = this.main[13][4] === 85 ? 74 : 85; });
+        this.animationDoor.animate(() => { this.door.tileId = this.door.tileId === 85 ? 74 : 85; });
         this.animationNpc.animate(() => { this.friendlyNpc.tileId = this.friendlyNpc.tileId === 136 ? 135 : 136; });
-        this.animationBucket.animate(() => { this.main[10][9] = this.main[10][9] === 131 ? -1 : 131; });
+        this.animationBucket.animate(() => { this.bucket.tileId = this.bucket.tileId === 131 ? -1 : 131; });
     }
 
     interact(character) {

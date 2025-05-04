@@ -89,8 +89,8 @@ class CanvasPainter {
         this.ctx.restore();
     }
 
-    renderNpc(npc) {
-        if (npc) {
+    renderSprite(sprite) {
+        if (sprite) {
             let offsetX = (character.posX  - VIEWPORT_OFFSET) * -1;
             let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
         
@@ -99,7 +99,7 @@ class CanvasPainter {
                 offsetY = 0;
             }
             
-            this.renderCharacter(npc, npc.posX + offsetX, npc.posY + offsetY);
+            this.renderCharacter(sprite, sprite.posX + offsetX, sprite.posY + offsetY);
         }
     }
 

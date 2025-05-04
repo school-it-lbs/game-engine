@@ -43,7 +43,7 @@ class Scene2 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         ];
 
-        this.npcList.push(this.enemy);
+        this.sprites.push(this.enemy);
     }
 
     animation() {
