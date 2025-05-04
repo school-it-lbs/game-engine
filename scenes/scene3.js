@@ -45,7 +45,7 @@ class Scene3 extends Scene{
         this.sprites = [this.portal]
     }
 
-    teleport(character){
+    interaction(character){
         if (character.hasCollided(this.portal)) {
             world.jumpToLevel(1); 
             character.move(15,15);

@@ -64,7 +64,7 @@ function renderText() {
 
 function render() {
     painter.clearCanvas();
-    
+    world.currentLevel.interaction(character);
 
     if (USE_FIXED_VIEW) {
         painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
@@ -136,7 +136,7 @@ document.addEventListener('keydown', (e) => {
     }
 
     if (e.code == 'KeyE') {
-        world.currentLevel.interact(character);
+        character.isInteracting = true;
     }
 
     // collision detection
@@ -145,9 +145,6 @@ document.addEventListener('keydown', (e) => {
         character.posX = previousPositionX;
         character.posY = previousPositionY;
     }
-
-    world.currentLevel.teleport(character);
-
 });
 
 

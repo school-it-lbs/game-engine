@@ -11,12 +11,7 @@ class Scene{
         return this.main[0].length;
     }
 
-    teleport(character){}
-
-    animation() {}
-
-    interact(character) {}
+    interaction(character){}
 
     overlay() {}
-
 }

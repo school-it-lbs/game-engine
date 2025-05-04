@@ -6,8 +6,6 @@ class Tileset{
         this.tilesPerRow = tilesPerRow;
     }
 
-    
-
     scaledTileSize(scaleFactor){
         return (tileset.tileSize + tileset.gapSize) * scaleFactor;
     }

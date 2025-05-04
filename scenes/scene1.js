@@ -77,7 +77,7 @@ class Scene1 extends Scene {
         ];
     }
 
-    teleport(character) {
+    interaction(character) {
         if (character.hasCollided(this.ladderUp1) || character.hasCollided(this.ladderUp2)) {
             character.move(11, 1);
         }
@@ -101,12 +101,10 @@ class Scene1 extends Scene {
                 world.collectItem();
             }
         });
-    }
 
-    interact(character) {
-        this.friendlyNpc.isSpeaking = false;
-        if (character.isNear(this.friendlyNpc)) {
-            this.friendlyNpc.isSpeaking = true;
+        if(character.isInteracting){
+            character.isInteracting = false;
+            this.friendlyNpc.isSpeaking = character.isNear(this.friendlyNpc);            
         }
     }
 
