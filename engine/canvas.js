@@ -94,7 +94,7 @@ class CanvasPainter {
             let offsetX = (player.posX  - VIEWPORT_OFFSET) * -1;
             let offsetY = (player.posY - VIEWPORT_OFFSET) * -1;
         
-            if (USE_FIXED_VIEW) {
+            if (world.activeScene.useFixedView) {
                 offsetX = 0;
                 offsetY = 0;
             }
@@ -108,7 +108,7 @@ class CanvasPainter {
             let offsetX = (player.posX - VIEWPORT_OFFSET) * -1;
             let offsetY = (player.posY - VIEWPORT_OFFSET) * -1;
 
-            if (USE_FIXED_VIEW) {
+            if (world.activeScene.useFixedView) {
                 offsetX = 0;
                 offsetY = 0;
             }

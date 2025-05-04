@@ -3,6 +3,7 @@ class Scene{
     main = [];
     sprites = [];
     speechBubbles = [];
+    useFixedView = false;
 
     get mapSizeX(){
         return this.main.length;

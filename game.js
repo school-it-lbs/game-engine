@@ -1,7 +1,6 @@
-const USE_FIXED_VIEW = false;
 const CANVAS_SIZE = 720;
 
-const VIEWPORT_SIZE = USE_FIXED_VIEW ? 16 : 15;
+const VIEWPORT_SIZE = 15;
 const VIEWPORT_OFFSET = Math.floor(VIEWPORT_SIZE / 2);
 const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
 
@@ -75,7 +74,7 @@ function render() {
     painter.clearCanvas();
     world.activeScene.interaction(player);
 
-    if (USE_FIXED_VIEW) {
+    if (world.activeScene.useFixedView) {
         painter.renderMapComplete(world.activeScene.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
         painter.renderMapComplete(world.activeScene.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
         painter.renderPlayer(player, player.posX, player.posY);

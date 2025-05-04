@@ -38,7 +38,9 @@ class Scene4 extends Scene{
         this.portal2 = new Sprite(7, 2, -1);
         this.bow = new Sprite(5, 7, 118);
 
-        this.sprites = [this.portal1, this.portal2, this.bow];        
+        this.sprites = [this.portal1, this.portal2, this.bow];
+        
+        this.useFixedView = true;
     }
 
     interaction(player){
