@@ -6,7 +6,7 @@ const USE_FIXED_VIEW = false;
 
 const CANVAS_SIZE = 720;
 
-const FPS = 20;
+
 
 const VIEWPORT_SIZE = USE_FIXED_VIEW ? 16 : 15;
 const VIEWPORT_OFFSET = Math.floor(VIEWPORT_SIZE / 2);
@@ -14,19 +14,5 @@ const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
 
 
 
-function startGameLoop(callback){
-    let previousTimestamp = performance.now();
-    function gameloop(timestamp) {
-        let deltaTime = timestamp - previousTimestamp;
-    
-        if (deltaTime > 1000 / FPS) {
-            previousTimestamp = timestamp;
-            callback();
-        }
-    
-        requestAnimationFrame(gameloop);
-    }
-    
-    requestAnimationFrame(gameloop);
-}
+
 

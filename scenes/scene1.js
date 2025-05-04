@@ -1,8 +1,8 @@
 class Scene1 extends Scene {
 
-    animationDoor = new TileAnimation(250);
-    animationNpc = new TileAnimation(1000);
-    animationBucket = new TileAnimation(500);
+    animationDoor = new AnimationDelay(250);
+    animationNpc = new AnimationDelay(1000);
+    animationBucket = new AnimationDelay(500);
     isNpcSpeaking = false;
 
     constructor() {

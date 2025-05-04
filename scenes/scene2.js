@@ -1,5 +1,5 @@
 class Scene2 extends Scene {
-    animationEnemy = new TileAnimation(500);
+    animationEnemy = new AnimationDelay(500);
     enemyPositionX = 0;
 
     constructor() {
