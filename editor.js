@@ -1,5 +1,7 @@
 let selectedTile = -1;
 
+const SCALE = 45;
+
 let mapSizeX = document.querySelector("#map-size-x").value;
 let mapSizeY = document.querySelector("#map-size-y").value;
 const tileset = new Tileset("#tileset", 16, 0, 12);

@@ -10,7 +10,7 @@ const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, tileset);
 
 const character = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
-const game = new Game();
+const gameLoop = new Loop();
 
 // world variables
 // -------------------------------------------------------------------
@@ -154,4 +154,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 
-game.start(render);
+gameLoop.start(render);
