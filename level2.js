@@ -44,7 +44,7 @@ const level2 = {
         this.animationEnemy.animate(() => {
             // note that we are overwriting main. anything in the enemies path will be reset to -1 
             this.main[10][this.enemyPositionX] = -1;
-            this.enemyPositionX = (this.enemyPositionX + 1) % NUMBER_OF_TILES;
+            this.enemyPositionX = (this.enemyPositionX + 1) % this.main[0].length;
             this.main[10][this.enemyPositionX] = 136;
 
             if(character.posX == this.enemyPositionX && character.posY == 10){

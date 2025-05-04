@@ -10,6 +10,8 @@ const tileset = document.querySelector("#tileset");
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "grey";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawTile(imageSrc, tileX, tileY, posX, posY) {
@@ -24,14 +26,14 @@ function drawBox(x, y) {
     ctx.closePath();
 }
 
-function renderGrid() {
-    for (let [col, row] of allCellsIterator()) {
+function renderGrid(x, y) {
+    for (let [col, row] of allCellsIterator(x, y)) {
         drawBox(row, col);
     }
 }
 
-function renderCharacter() {    
-    renderTileById(132, character.posX, character.posY);
+function renderCharacter(x, y) {    
+    renderTileById(132, x, y);
 }
 
 function renderTileById(id, posX, posY){
@@ -42,7 +44,48 @@ function renderTileById(id, posX, posY){
 
 
 function renderMap(map) {
-    for (let [col, row] of allCellsIterator()) {
+    const x = character.posX - VIEWPORT_OFFSET; 
+    const y = character.posY - VIEWPORT_OFFSET;
+
+    for(let i = 0; i < VIEWPORT_SIZE; ++i){
+        for(let j = 0; j < VIEWPORT_SIZE; ++j){
+            let tile = -1;
+
+            let row = map[y+j];
+            
+            if(row != undefined){
+                let col = row[x+i];
+                if(col != undefined){
+                    tile = col;
+                }
+            }
+            
+            renderTileById(tile, i, j);
+        }
+    }
+}
+
+function renderOverlay(textData){   
+    if(textData){
+        let offsetX = (character.posX - VIEWPORT_OFFSET) * -1; 
+        let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
+
+        if(USE_FIXED_VIEW){
+            offsetX = 0;
+            offsetY = 0;
+        }
+    
+        if(textData.length > 0)
+        {
+            const t = textData[0];
+            drawTextWithBackground(t.text, (t.x + offsetX) * SCALE, (t.y + offsetY) * SCALE);
+        }
+    }    
+}
+
+
+function renderMapComplete(map, x, y) {
+    for (let [col, row] of allCellsIterator(x, y)) {
         if (map[row] != undefined && map[row][col] != undefined) {
             let tile = map[row][col];
             renderTileById(tile, col, row);
@@ -50,9 +93,10 @@ function renderMap(map) {
     }
 }
 
-function* allCellsIterator() {
-    for (let row = 0; row < NUMBER_OF_TILES; ++row) {
-        for (let col = 0; col < NUMBER_OF_TILES; ++col) {
+
+function* allCellsIterator(x, y) {
+    for (let row = 0; row < x; ++row) {
+        for (let col = 0; col < y; ++col) {
             yield [col, row];
         }
     }

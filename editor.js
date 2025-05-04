@@ -1,12 +1,19 @@
 let selectedTile = -1;
 
+let mapSizeX = document.querySelector("#map-size-x").value;
+let mapSizeY = document.querySelector("#map-size-y").value;
+
+
+
+
+
 function populateArray(initialValue){
     const newArray = [];
     
-    for(let i=0; i < NUMBER_OF_TILES; ++i){
+    for(let i=0; i < mapSizeX; ++i){
         const innerArray = [];
         
-        for(let j=0; j < NUMBER_OF_TILES; ++j){
+        for(let j=0; j < mapSizeY; ++j){
             innerArray.push(initialValue);
 
         }   
@@ -31,13 +38,18 @@ tileSelection.style.width = (computedStyleTileSet.width.replace("px","") * scale
 tileSelection.addEventListener("click", (e) => {
     const selectedX = Math.floor(e.offsetX / ((TILE_SIZE + TILE_GAP) * scaleFactor));
     const selectedY = Math.floor(e.offsetY / ((TILE_SIZE + TILE_GAP) * scaleFactor));    
+
+    // console.log(selectedX + "|" + selectedY);
+
     selectedTile = selectedX + (selectedY * TILES_PER_ROW);
 });
 
 
-document.querySelector("button").addEventListener("click", () => {    
+document.querySelector("button#load").addEventListener("click", () => {    
     background = JSON.parse(backgroundTextarea.value);
     main = JSON.parse(mainTextarea.value);
+    mapSizeX = main.length;
+    mapSizeY = main[0].length;
     render();
 });
 
@@ -51,10 +63,12 @@ function output(){
 }
 
 function render() {
+    canvas.width = mapSizeY * SCALE;
+    canvas.height = mapSizeX * SCALE;
     clearCanvas();
-    renderMap(background);            
-    renderMap(main);
-    renderGrid();
+    renderMapComplete(background, mapSizeX, mapSizeY);            
+    renderMapComplete(main, mapSizeX, mapSizeY);  
+    renderGrid(mapSizeY, mapSizeX);
     output();
 }
 
@@ -62,12 +76,20 @@ document.querySelector("canvas").addEventListener('click', (e) => {
     const row = Math.floor(e.offsetX / SCALE);
     const col = Math.floor(e.offsetY / SCALE);
 
+    // console.log(row + "|" + col);
+
     const map = document.querySelector('input[name="layer"]:checked').value == "background" ? background : main;
 
     map[col][row] = e.shiftKey ? -1 : selectedTile;
     render();
 });
 
-
+document.querySelector("button#update").addEventListener("click", () => {
+    mapSizeX = document.querySelector("#map-size-x").value;
+    mapSizeY = document.querySelector("#map-size-y").value;
+    background = populateArray(0);
+    main = populateArray(-1);
+    render();
+});
 
 render();

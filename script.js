@@ -51,13 +51,23 @@ function renderText(){
 function render() {
     clearCanvas();
     world.currentLevel.animation();
-    renderMap(world.currentLevel.background);
-    renderMap(world.currentLevel.main);
-    renderCharacter();
-    if(world.showGrid){
-        renderGrid();
+
+    if(USE_FIXED_VIEW){
+        renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        renderCharacter(character.posX, character.posY);  
+    
+    }else{
+        renderMap(world.currentLevel.background);
+        renderMap(world.currentLevel.main);
+        renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
     }
-    world.currentLevel.overlay();
+    
+    if(world.showGrid){
+        renderGrid(world.currentLevel.main.length, world.currentLevel.main[0].length);
+    }
+
+    renderOverlay(world.currentLevel.overlay());
     renderText();
 }
 
@@ -72,9 +82,18 @@ document.addEventListener('click', (e) => {
     }     
 });
 
+let keyDownDelay;
 
 document.addEventListener('keydown', (e) => {
-    if (e.repeat) return;
+    if (e.repeat)
+    {
+        if(performance.now() - keyDownDelay < 100) 
+        {
+            return;
+        }
+    }
+
+    keyDownDelay = performance.now();
 
     if (e.code == 'Space') {
         world.toggleGrid();
@@ -121,5 +140,5 @@ document.addEventListener('keydown', (e) => {
 
 });
 
-character.move(2,2); // starting position
+character.move(VIEWPORT_OFFSET, VIEWPORT_OFFSET); // starting position
 startGameLoop(render);
