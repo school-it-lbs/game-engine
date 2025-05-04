@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dungeon Game Editor</title>
-    <script src="core.js" defer></script>
-    <script src="canvas.js" defer></script>
+    <script src="engine/tileset.js" defer></script>
+    <script src="engine/canvas.js" defer></script>
     <script src="editor.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,8 +16,8 @@
         <label><input type="radio" value="main"  name="layer" /> main</label>
     </div>
     <div>
-        <label><input type="text" value="16" id="map-size-x" autocomplete="off"/> Map size X</label>
-        <label><input type="text" value="16" id="map-size-y" autocomplete="off"/> Map size Y</label>
+        <label><input type="text" value="15" id="map-size-x" autocomplete="off"/> Map size X</label>
+        <label><input type="text" value="15" id="map-size-y" autocomplete="off"/> Map size Y</label>
         <button id="update">update</button>
     </div>
     <div><canvas id="map"></canvas></div>
