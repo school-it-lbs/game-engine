@@ -1,3 +1,10 @@
+const USE_FIXED_VIEW = false;
+const CANVAS_SIZE = 720;
+
+const VIEWPORT_SIZE = USE_FIXED_VIEW ? 16 : 15;
+const VIEWPORT_OFFSET = Math.floor(VIEWPORT_SIZE / 2);
+const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
+
 // load sound
 const sfx = document.querySelector("#sfx");
 
@@ -8,7 +15,7 @@ const level3 = new Scene3();
 const tileset = new Tileset("#tileset", 16, 0, 12);
 const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, tileset);
 
-const character = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
+const player = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
 const gameLoop = new Loop();
 
@@ -64,17 +71,17 @@ function renderText() {
 
 function render() {
     painter.clearCanvas();
-    world.currentLevel.interaction(character);
+    world.currentLevel.interaction(player);
 
     if (USE_FIXED_VIEW) {
         painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
         painter.renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
-        painter.renderCharacter(character, character.posX, character.posY);
+        painter.renderPlayer(player, player.posX, player.posY);
 
     } else {
         painter.renderMap(world.currentLevel.background);
         painter.renderMap(world.currentLevel.main);
-        painter.renderCharacter(character, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+        painter.renderPlayer(player, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
     }
 
     if (world.showGrid) {
@@ -113,43 +120,43 @@ document.addEventListener('keydown', (e) => {
         return;
     }
 
-    const previousPositionX = character.posX;
-    const previousPositionY = character.posY;
+    const previousPositionX = player.posX;
+    const previousPositionY = player.posY;
 
     if (e.code == 'KeyW' || e.code == 'ArrowUp') {
-        if(character.posY > 0){
-            character.moveUp();
+        if(player.posY > 0){
+            player.moveUp();
         }        
     }
 
     if (e.code == 'KeyS' || e.code == 'ArrowDown') {
-        if(character.posY < world.currentLevel.mapSizeX - 1){
-            character.moveDown();
+        if(player.posY < world.currentLevel.mapSizeX - 1){
+            player.moveDown();
         }        
     }
 
     if (e.code == 'KeyA' || e.code == 'ArrowLeft') {
-        if(character.posX > 0)
+        if(player.posX > 0)
         {
-            character.moveLeft();
+            player.moveLeft();
         }        
     }
 
     if (e.code == 'KeyD' || e.code == 'ArrowRight') {
-        if(character.posX < world.currentLevel.mapSizeY - 1){
-            character.moveRight();
+        if(player.posX < world.currentLevel.mapSizeY - 1){
+            player.moveRight();
         }        
     }
 
     if (e.code == 'KeyE') {
-        character.isInteracting = true;
+        player.isInteracting = true;
     }
 
     // collision detection
-    const nextTile = world.currentLevel.main[character.posY][character.posX];
+    const nextTile = world.currentLevel.main[player.posY][player.posX];
     if (!world.reachable.includes(nextTile)) {
-        character.posX = previousPositionX;
-        character.posY = previousPositionY;
+        player.posX = previousPositionX;
+        player.posY = previousPositionY;
     }
 });
 

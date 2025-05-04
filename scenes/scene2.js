@@ -40,24 +40,24 @@ class Scene2 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         ];
 
-        const enemy = new Sprite(0, 10, 136);
-        enemy.setAnimation(500, (s) => {
+        this.enemy = new Sprite(0, 10, 136);
+        this.enemy.setAnimation(500, (s) => {
             s.posX = (s.posX + 1) % world.currentLevel.mapSizeY;
-    
-            if (character.hasCollided(s)) {
-                world.gameOver = true;
-            }    
         });
 
         this.portal = new Sprite(4, 4, 29);
 
-        this.sprites = [enemy, this.portal];
+        this.sprites = [this.enemy, this.portal];
     }
 
-    interaction(character) {
-        if (character.hasCollided(this.portal)) {
+    interaction(player) {
+        if (player.hasCollided(this.portal)) {
             world.jumpToLevel(1);
         }
+
+        if (player.hasCollided(this.enemy)) {
+            world.gameOver = true;
+        } 
     }
 
 }

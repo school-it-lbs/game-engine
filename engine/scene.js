@@ -12,5 +12,5 @@ class Scene{
         return this.main[0].length;
     }
 
-    interaction(character){}
+    interaction(player){}
 }

@@ -40,7 +40,7 @@ class CanvasPainter {
         }
     }
 
-    renderCharacter(character, posX, posY) {        
+    renderPlayer(character, posX, posY) {        
         this.renderTileById(character.tileId, posX, posY);
     }
 
@@ -51,8 +51,8 @@ class CanvasPainter {
     }
 
     renderMap(map) {
-        const x = character.posX - VIEWPORT_OFFSET;
-        const y = character.posY - VIEWPORT_OFFSET;
+        const x = player.posX - VIEWPORT_OFFSET;
+        const y = player.posY - VIEWPORT_OFFSET;
 
         for (let i = 0; i < VIEWPORT_SIZE; ++i) {
             for (let j = 0; j < VIEWPORT_SIZE; ++j) {
@@ -91,22 +91,22 @@ class CanvasPainter {
 
     renderSprite(sprite) {
         if (sprite) {
-            let offsetX = (character.posX  - VIEWPORT_OFFSET) * -1;
-            let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
+            let offsetX = (player.posX  - VIEWPORT_OFFSET) * -1;
+            let offsetY = (player.posY - VIEWPORT_OFFSET) * -1;
         
             if (USE_FIXED_VIEW) {
                 offsetX = 0;
                 offsetY = 0;
             }
             
-            this.renderCharacter(sprite, sprite.posX + offsetX, sprite.posY + offsetY);
+            this.renderPlayer(sprite, sprite.posX + offsetX, sprite.posY + offsetY);
         }
     }
 
     renderOverlay(speechBubble) {
         if (speechBubble) {
-            let offsetX = (character.posX - VIEWPORT_OFFSET) * -1;
-            let offsetY = (character.posY - VIEWPORT_OFFSET) * -1;
+            let offsetX = (player.posX - VIEWPORT_OFFSET) * -1;
+            let offsetY = (player.posY - VIEWPORT_OFFSET) * -1;
 
             if (USE_FIXED_VIEW) {
                 offsetX = 0;

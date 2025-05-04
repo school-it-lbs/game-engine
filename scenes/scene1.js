@@ -82,34 +82,34 @@ class Scene1 extends Scene {
         this.speechBubbles = [this.friendlyNpc.speech, sb];
     }
 
-    interaction(character) {
-        if (character.hasCollided(this.ladderUp1) || character.hasCollided(this.ladderUp2)) {
-            character.move(11, 1);
+    interaction(player) {
+        if (player.hasCollided(this.ladderUp1) || player.hasCollided(this.ladderUp2)) {
+            player.move(11, 1);
         }
 
-        if (character.hasCollided(this.ladderDown)) {
-            character.move(11, 6);
+        if (player.hasCollided(this.ladderDown)) {
+            player.move(11, 6);
         }
 
-        if (character.hasCollided(this.portal1)) {
+        if (player.hasCollided(this.portal1)) {
             world.jumpToLevel(2);
         }
 
-        if (character.hasCollided(this.portal2)) {
+        if (player.hasCollided(this.portal2)) {
             world.jumpToLevel(3);
         }
 
         this.collectables.forEach(c => {
-            if (character.hasCollided(c)) {
+            if (player.hasCollided(c)) {
                 delete this.sprites[this.sprites.indexOf(c)];
                 delete this.collectables[this.collectables.indexOf(c)];
                 world.collectItem();
             }
         });
 
-        if(character.isInteracting){
-            character.isInteracting = false;
-            this.friendlyNpc.speech.isVisible = character.isNear(this.friendlyNpc);            
+        if(player.isInteracting){
+            player.isInteracting = false;
+            this.friendlyNpc.speech.isVisible = player.isNear(this.friendlyNpc);            
         }
     }
 }
