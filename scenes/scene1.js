@@ -44,7 +44,7 @@ class Scene1 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, 30, 32, -1, -1, -1, -1, -1, -1, 0],
         ];
 
-        this.friendlyNpc = new Character(5, 9, 135);
+        this.friendlyNpc = new Sprite(5, 9, 135);
         this.friendlyNpc.isSpeaking = false;
         this.npcList.push(this.friendlyNpc);
     }
@@ -76,7 +76,7 @@ class Scene1 extends Scene {
 
     interact(character) {
         this.friendlyNpc.isSpeaking = false;
-        if (character.isNear(this.friendlyNpc.posX, this.friendlyNpc.posY)) {
+        if (character.isNear(this.friendlyNpc)) {
             this.friendlyNpc.isSpeaking = true;
         }
     }

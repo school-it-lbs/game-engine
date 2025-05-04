@@ -7,7 +7,7 @@ const level3 = new Scene3();
 
 const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, "#tileset");
 
-const character = new Character(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
+const character = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
 const game = new Game();
 

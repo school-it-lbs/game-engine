@@ -1,6 +1,7 @@
 class Scene2 extends Scene {
-    animationEnemy = new AnimationDelay(500);
-    enemyPositionX = 0;
+    
+    enemy = new Sprite(0, 10, 136);
+    enemyAnimation = new AnimationDelay(500);
 
     constructor() {
         super();
@@ -41,16 +42,15 @@ class Scene2 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         ];
+
+        this.npcList.push(this.enemy);
     }
 
     animation() {
-        this.animationEnemy.animate(() => {
-            // note that we are overwriting main. anything in the enemies path will be reset to -1 
-            this.main[10][this.enemyPositionX] = -1;
-            this.enemyPositionX = (this.enemyPositionX + 1) % this.main[0].length;
-            this.main[10][this.enemyPositionX] = 136;
+        this.enemyAnimation.animate(() => {            
+            this.enemy.posX = (this.enemy.posX + 1) % world.currentLevel.mapSizeY;
 
-            if (character.posX == this.enemyPositionX && character.posY == 10) {
+            if (character.hasCollided(this.enemy)) {
                 world.gameOver = true;
             }
 
