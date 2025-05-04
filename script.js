@@ -3,7 +3,11 @@ const sfx = document.querySelector("#sfx");
 
 const level1 = new Scene1();
 const level2 = new Scene2();
-const level3 = new Scene3()
+const level3 = new Scene3();
+
+const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, "#tileset");
+
+const character = new Character(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
 
 // world variables
 // -------------------------------------------------------------------
@@ -47,30 +51,30 @@ function renderText() {
         text = "You win!";
     }
 
-    drawText(text, 10, 50, "#ffffff");
+    painter.drawText(text, 10, 50, "#ffffff");
 }
 
 
 function render() {
-    clearCanvas();
+    painter.clearCanvas();
     world.currentLevel.animation();
 
     if (USE_FIXED_VIEW) {
-        renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
-        renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
-        renderCharacter(character.posX, character.posY);
+        painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        painter.renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        painter.renderCharacter(character.posX, character.posY);
 
     } else {
-        renderMap(world.currentLevel.background);
-        renderMap(world.currentLevel.main);
-        renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
+        painter.renderMap(world.currentLevel.background);
+        painter.renderMap(world.currentLevel.main);
+        painter.renderCharacter(VIEWPORT_OFFSET, VIEWPORT_OFFSET);
     }
 
     if (world.showGrid) {
-        renderGrid(world.currentLevel.mapSizeX, world.currentLevel.mapSizeY);
+        painter.renderGrid(world.currentLevel.mapSizeX, world.currentLevel.mapSizeY);
     }
 
-    renderOverlay(world.currentLevel.overlay());
+    painter.renderOverlay(world.currentLevel.overlay());
     renderText();
 }
 
@@ -141,5 +145,5 @@ document.addEventListener('keydown', (e) => {
 
 });
 
-character.move(VIEWPORT_OFFSET, VIEWPORT_OFFSET); // starting position
+
 startGameLoop(render);

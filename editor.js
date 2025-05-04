@@ -2,7 +2,7 @@ let selectedTile = -1;
 
 let mapSizeX = document.querySelector("#map-size-x").value;
 let mapSizeY = document.querySelector("#map-size-y").value;
-
+const painter = new CanvasPainter("canvas", mapSizeY * SCALE, mapSizeX * SCALE, "#tileset");
 
 
 
@@ -62,15 +62,16 @@ function output(){
     mainTextarea.value = outputFormat(main);
 }
 
+
+
 function render() {
-    canvas.width = mapSizeY * SCALE;
-    canvas.height = mapSizeX * SCALE;
-    clearCanvas();
-    renderMapComplete(background, mapSizeX, mapSizeY);            
-    renderMapComplete(main, mapSizeX, mapSizeY);  
-    renderGrid(mapSizeY, mapSizeX);
+    painter.clearCanvas();
+    painter.renderMapComplete(background, mapSizeX, mapSizeY);            
+    painter.renderMapComplete(main, mapSizeX, mapSizeY);  
+    painter.renderGrid(mapSizeY, mapSizeX);
     output();
 }
+
 
 document.querySelector("canvas").addEventListener('click', (e) => {    
     const row = Math.floor(e.offsetX / SCALE);
@@ -87,6 +88,8 @@ document.querySelector("canvas").addEventListener('click', (e) => {
 document.querySelector("button#update").addEventListener("click", () => {
     mapSizeX = document.querySelector("#map-size-x").value;
     mapSizeY = document.querySelector("#map-size-y").value;
+    painter.resize(mapSizeY * SCALE, mapSizeX * SCALE);
+
     background = populateArray(0);
     main = populateArray(-1);
     render();

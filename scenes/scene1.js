@@ -1,8 +1,8 @@
 class Scene1 extends Scene {
 
-    animationDoor = new tileAnimation(250);
-    animationNpc = new tileAnimation(1000);
-    animationBucket = new tileAnimation(500);
+    animationDoor = new TileAnimation(250);
+    animationNpc = new TileAnimation(1000);
+    animationBucket = new TileAnimation(500);
     isNpcSpeaking = false;
 
     constructor() {
@@ -72,7 +72,7 @@ class Scene1 extends Scene {
 
     interact(character) {
         this.isNpcSpeaking = false;
-        if (isCharacterNear(character, 5, 9)) {
+        if (character.isNear(5, 9)) {
             this.isNpcSpeaking = true;
         }
     }
