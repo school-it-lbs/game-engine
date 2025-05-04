@@ -30,15 +30,19 @@ const world = {
         69, 74, 78, 85, 86, 87, 89, 90, 91, 93, 94, 95, 103, 105, 106, 107,
         109, 115, 116, 117, 118, 119, 123, 124, 127, 128, 129, 130, 131
     ],
-
-    collectable: [94],
+    
 
     showGrid: false,
     toggleGrid: function () {
         this.showGrid = !this.showGrid;
     },
 
-    gameOver: false
+    gameOver: false,
+
+    collectItem: function(){
+        this.collectedItems++;
+        sfx.play();
+    }
 }
 
 
@@ -140,12 +144,6 @@ document.addEventListener('keydown', (e) => {
     if (!world.reachable.includes(nextTile)) {
         character.posX = previousPositionX;
         character.posY = previousPositionY;
-    }
-
-    if (world.collectable.includes(nextTile)) {
-        world.currentLevel.main[character.posY][character.posX] = -1;
-        world.collectedItems++;
-        sfx.play();
     }
 
     world.currentLevel.teleport(character);

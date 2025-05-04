@@ -25,8 +25,8 @@ class Scene1 extends Scene {
         this.main = [
             [-1, -1, 13, 13, 14, -1, -1, -1, -1, -1, 96, 97, 97, 97, 98, 0],
             [24, 25, 40, 25, 26, -1, -1, -1, -1, -1, 108, 109, 109, 109, 110, 17],
-            [36, 37, 37, 37, 38, -1, -1, -1, -1, -1, 108, 109, 109, 109, 110, 94],
-            [-1, -1, 43, -1, -1, -1, 94, -1, -1, -1, 120, 121, 121, 121, 122, 0],
+            [36, 37, 37, 37, 38, -1, -1, -1, -1, -1, 108, 109, 109, 109, 110, -1],
+            [-1, -1, 43, -1, -1, -1, -1, -1, -1, -1, 120, 121, 121, 121, 122, 0],
             [-1, -1, 43, -1, 1, -1, -1, -1, -1, -1, 125, 111, 112, 126, 126, 0],
             [-1, -1, 43, 43, -1, -1, -1, -1, -1, -1, 126, 123, 124, 125, 126, 0],
             [-1, -1, -1, 43, -1, -1, -1, -1, -1, -1, -1, 43, 43, -1, -1, 0],
@@ -35,8 +35,8 @@ class Scene1 extends Scene {
             [1, 1, -1, -1, 1, 2, -1, -1, 92, -1, -1, -1, -1, -1, -1, 0],
             [-1, -1, -1, -1, -1, -1, -1, -1, 104, -1, -1, -1, -1, -1, -1, 0],
             [-1, 52, 53, 55, 53, 54, -1, -1, -1, -1, -1, 44, 45, 45, 45, 46],
-            [-1, 64, 65, 65, 67, 66, -1, -1, -1, -1, -1, 56, -1, -1, 94, 58],
-            [-1, 72, 73, 84, -1, 75, -1, -1, -1, -1, -1, 56, 94, -1, -1, 58],
+            [-1, 64, 65, 65, 67, 66, -1, -1, -1, -1, -1, 56, -1, -1, -1, 58],
+            [-1, 72, 73, 84, -1, 75, -1, -1, -1, -1, -1, 56, -1, -1, -1, 58],
             [1, -1, -1, -1, -1, -1, -1, 6, 8, -1, -1, 68, 69, 45, 45, 70],
             [-1, -1, -1, -1, -1, -1, -1, 30, 32, -1, -1, -1, -1, -1, -1, 0],
         ];
@@ -57,6 +57,11 @@ class Scene1 extends Scene {
         this.ladderUp1 = new Sprite(11, 5, -1);
         this.ladderUp2 = new Sprite(12, 5, -1);
 
+        this.collectable1 = new Sprite(15, 2, 94);
+        this.collectable2 = new Sprite(12, 13, 94);
+        this.collectable3 = new Sprite(14, 12, 94);
+        this.collectable4 = new Sprite(6, 3, 94);
+
         this.sprites = [
             this.friendlyNpc, 
             door, 
@@ -65,7 +70,11 @@ class Scene1 extends Scene {
             this.portal2,
             this.ladderDown,
             this.ladderUp1,
-            this.ladderUp2
+            this.ladderUp2,
+            this.collectable1,
+            this.collectable2,
+            this.collectable3,
+            this.collectable4,
         ];
     }
 
@@ -84,6 +93,26 @@ class Scene1 extends Scene {
 
         if (character.hasCollided(this.portal2)) {
             world.jumpToLevel(3);
+        }
+
+        if(character.hasCollided(this.collectable1)){            
+            world.collectItem();
+            delete this.sprites[this.sprites.indexOf(this.collectable1)];
+        }
+        
+        if(character.hasCollided(this.collectable2)){
+            world.collectItem();
+            delete this.sprites[this.sprites.indexOf(this.collectable2)];
+        }
+
+        if(character.hasCollided(this.collectable3)){
+            world.collectItem();
+            delete this.sprites[this.sprites.indexOf(this.collectable3)];
+        }
+
+        if(character.hasCollided(this.collectable4)){
+            world.collectItem();
+            delete this.sprites[this.sprites.indexOf(this.collectable4)];
         }
     }
 
