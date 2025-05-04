@@ -28,7 +28,8 @@ class World{
     sceneList = [
         new Scene1(),
         new Scene2(),
-        new Scene3()
+        new Scene3(),
+        new Scene4()
     ];
 
     constructor(){        
@@ -36,6 +37,7 @@ class World{
         this.points = 0;
         this.gameOver = false;
         this.showGrid = false;
+        this.inventory = "";
     }
 
     switchScene(sceneId){
@@ -65,6 +67,7 @@ function renderText() {
     }
 
     painter.drawText(text, 10, 50, "#ffffff");
+    painter.drawText(world.inventory, 10, 700, "#ffffff");
 }
 
 

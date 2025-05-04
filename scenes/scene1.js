@@ -53,6 +53,7 @@ class Scene1 extends Scene {
 
         this.portal1 = new Sprite(0, 0, 29);
         this.portal2 = new Sprite(1, 0, 29);
+        this.portalTo4 = new Sprite(2, 0, 29);
         this.ladderDown = new Sprite(11, 2, 103);
         this.ladderUp1 = new Sprite(11, 5, -1);
         this.ladderUp2 = new Sprite(12, 5, -1);
@@ -70,6 +71,7 @@ class Scene1 extends Scene {
             bucket,
             this.portal1,
             this.portal2,
+            this.portalTo4,
             this.ladderDown,
             this.ladderUp1,
             this.ladderUp2,
@@ -97,6 +99,11 @@ class Scene1 extends Scene {
 
         if (player.hasCollided(this.portal2)) {
             world.switchScene(3);
+        }
+
+        if (player.hasCollided(this.portalTo4)) {
+            world.switchScene(4);
+            player.move(7,7);
         }
 
         this.collectables.forEach(c => {
