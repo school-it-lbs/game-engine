@@ -8,9 +8,6 @@ const SCALE = CANVAS_SIZE / VIEWPORT_SIZE;
 // load sound
 const sfx = document.querySelector("#sfx");
 
-const level1 = new Scene1();
-const level2 = new Scene2();
-const level3 = new Scene3();
 
 const tileset = new Tileset("#tileset", 16, 0, 12);
 const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, tileset);
@@ -19,49 +16,51 @@ const player = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
 const gameLoop = new Loop();
 
-// world variables
-// -------------------------------------------------------------------
-const world = {
-    levels: [level1, level2, level3],
 
-    currentLevel: level1,
+class World{
 
-    jumpToLevel: function (levelId) {
-        this.currentLevel = this.levels[levelId - 1];
-    },
-
-    collectedItems: 0,
-
-    reachable: [
+    reachableTiles = [
         -1, 0, 1, 2, 12, 13, 14, 24, 25, 26, 29, 36, 37, 38, 39, 40, 41, 42, 43,
         69, 74, 78, 85, 86, 87, 89, 90, 91, 93, 94, 95, 103, 105, 106, 107,
         109, 115, 116, 117, 118, 119, 123, 124, 127, 128, 129, 130, 131
-    ],
-    
+    ];
 
-    showGrid: false,
-    toggleGrid: function () {
-        this.showGrid = !this.showGrid;
-    },
+    sceneList = [
+        new Scene1(),
+        new Scene2(),
+        new Scene3()
+    ];
 
-    gameOver: false,
+    constructor(){        
+        this.activeScene = this.sceneList[0];
+        this.points = 0;
+        this.gameOver = false;
+        this.showGrid = false;
+    }
 
-    collectItem: function(){
-        this.collectedItems++;
+    switchScene(sceneId){
+        this.activeScene = this.sceneList[sceneId - 1];
+    }
+
+    scorePoint(){
+        this.points++;
         sfx.play();
     }
 }
+
+const world = new World();
+
 
 
 
 // render
 // -------------------------------------------------------------------
 function renderText() {
-    let text = world.collectedItems;
+    let text = world.points;
     if (world.gameOver) {
         text = "GAME OVER";
     }
-    else if (world.collectedItems == 4) {
+    else if (world.points == 4) {
         text = "You win!";
     }
 
@@ -71,29 +70,29 @@ function renderText() {
 
 function render() {
     painter.clearCanvas();
-    world.currentLevel.interaction(player);
+    world.activeScene.interaction(player);
 
     if (USE_FIXED_VIEW) {
-        painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
-        painter.renderMapComplete(world.currentLevel.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        painter.renderMapComplete(world.activeScene.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
+        painter.renderMapComplete(world.activeScene.main, VIEWPORT_SIZE, VIEWPORT_SIZE);
         painter.renderPlayer(player, player.posX, player.posY);
 
     } else {
-        painter.renderMap(world.currentLevel.background);
-        painter.renderMap(world.currentLevel.main);
+        painter.renderMap(world.activeScene.background);
+        painter.renderMap(world.activeScene.main);
         painter.renderPlayer(player, VIEWPORT_OFFSET, VIEWPORT_OFFSET);
     }
 
     if (world.showGrid) {
-        painter.renderGrid(world.currentLevel.mapSizeX, world.currentLevel.mapSizeY);
+        painter.renderGrid(world.activeScene.mapSizeX, world.activeScene.mapSizeY);
     }
 
-    world.currentLevel.sprites.forEach(sprite => {
+    world.activeScene.sprites.forEach(sprite => {
         sprite.animate();
         painter.renderSprite(sprite);
     });
     
-    world.currentLevel.speechBubbles.forEach(speech => {        
+    world.activeScene.speechBubbles.forEach(speech => {        
         if(speech.isVisible){
             painter.renderOverlay(speech);
         }
@@ -130,7 +129,7 @@ document.addEventListener('keydown', (e) => {
     }
 
     if (e.code == 'KeyS' || e.code == 'ArrowDown') {
-        if(player.posY < world.currentLevel.mapSizeX - 1){
+        if(player.posY < world.activeScene.mapSizeX - 1){
             player.moveDown();
         }        
     }
@@ -143,7 +142,7 @@ document.addEventListener('keydown', (e) => {
     }
 
     if (e.code == 'KeyD' || e.code == 'ArrowRight') {
-        if(player.posX < world.currentLevel.mapSizeY - 1){
+        if(player.posX < world.activeScene.mapSizeY - 1){
             player.moveRight();
         }        
     }
@@ -153,10 +152,9 @@ document.addEventListener('keydown', (e) => {
     }
 
     // collision detection
-    const nextTile = world.currentLevel.main[player.posY][player.posX];
-    if (!world.reachable.includes(nextTile)) {
-        player.posX = previousPositionX;
-        player.posY = previousPositionY;
+    const nextTile = world.activeScene.main[player.posY][player.posX];
+    if (!world.reachableTiles.includes(nextTile)) {
+        player.move(previousPositionX, previousPositionY);        
     }
 });
 

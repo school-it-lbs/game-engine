@@ -42,7 +42,7 @@ class Scene2 extends Scene {
 
         this.enemy = new Sprite(0, 10, 136);
         this.enemy.setAnimation(500, (s) => {
-            s.posX = (s.posX + 1) % world.currentLevel.mapSizeY;
+            s.posX = (s.posX + 1) % world.activeScene.mapSizeY;
         });
 
         this.portal = new Sprite(4, 4, 29);
@@ -52,7 +52,7 @@ class Scene2 extends Scene {
 
     interaction(player) {
         if (player.hasCollided(this.portal)) {
-            world.jumpToLevel(1);
+            world.switchScene(1);
         }
 
         if (player.hasCollided(this.enemy)) {

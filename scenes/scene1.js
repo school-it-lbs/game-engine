@@ -92,18 +92,18 @@ class Scene1 extends Scene {
         }
 
         if (player.hasCollided(this.portal1)) {
-            world.jumpToLevel(2);
+            world.switchScene(2);
         }
 
         if (player.hasCollided(this.portal2)) {
-            world.jumpToLevel(3);
+            world.switchScene(3);
         }
 
         this.collectables.forEach(c => {
             if (player.hasCollided(c)) {
                 delete this.sprites[this.sprites.indexOf(c)];
                 delete this.collectables[this.collectables.indexOf(c)];
-                world.collectItem();
+                world.scorePoint();
             }
         });
 

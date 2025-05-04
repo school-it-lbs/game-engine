@@ -47,7 +47,7 @@ class Scene3 extends Scene{
 
     interaction(player){
         if (player.hasCollided(this.portal)) {
-            world.jumpToLevel(1); 
+            world.switchScene(1); 
             player.move(15,15);
         }
     }
