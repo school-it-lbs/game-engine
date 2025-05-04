@@ -57,24 +57,23 @@ class Scene1 extends Scene {
         this.ladderUp1 = new Sprite(11, 5, -1);
         this.ladderUp2 = new Sprite(12, 5, -1);
 
-        this.collectable1 = new Sprite(15, 2, 94);
-        this.collectable2 = new Sprite(12, 13, 94);
-        this.collectable3 = new Sprite(14, 12, 94);
-        this.collectable4 = new Sprite(6, 3, 94);
+        this.collectables = [
+            new Sprite(15, 2, 94), 
+            new Sprite(12, 13, 94), 
+            new Sprite(14, 12, 94), 
+            new Sprite(6, 3, 94)
+        ];
 
         this.sprites = [
-            this.friendlyNpc, 
-            door, 
-            bucket, 
-            this.portal1, 
+            this.friendlyNpc,
+            door,
+            bucket,
+            this.portal1,
             this.portal2,
             this.ladderDown,
             this.ladderUp1,
             this.ladderUp2,
-            this.collectable1,
-            this.collectable2,
-            this.collectable3,
-            this.collectable4,
+            ...this.collectables        
         ];
     }
 
@@ -95,25 +94,13 @@ class Scene1 extends Scene {
             world.jumpToLevel(3);
         }
 
-        if(character.hasCollided(this.collectable1)){            
-            world.collectItem();
-            delete this.sprites[this.sprites.indexOf(this.collectable1)];
-        }
-        
-        if(character.hasCollided(this.collectable2)){
-            world.collectItem();
-            delete this.sprites[this.sprites.indexOf(this.collectable2)];
-        }
-
-        if(character.hasCollided(this.collectable3)){
-            world.collectItem();
-            delete this.sprites[this.sprites.indexOf(this.collectable3)];
-        }
-
-        if(character.hasCollided(this.collectable4)){
-            world.collectItem();
-            delete this.sprites[this.sprites.indexOf(this.collectable4)];
-        }
+        this.collectables.forEach(c => {
+            if (character.hasCollided(c)) {
+                delete this.sprites[this.sprites.indexOf(c)];
+                delete this.collectables[this.collectables.indexOf(c)];
+                world.collectItem();
+            }
+        });
     }
 
     interact(character) {
