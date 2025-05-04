@@ -5,7 +5,8 @@ const level1 = new Scene1();
 const level2 = new Scene2();
 const level3 = new Scene3();
 
-const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, "#tileset");
+const tileset = new Tileset("#tileset", 16, 0, 12);
+const painter = new CanvasPainter("canvas", CANVAS_SIZE, CANVAS_SIZE, tileset);
 
 const character = new Sprite(VIEWPORT_OFFSET, VIEWPORT_OFFSET, 132);
 
@@ -84,16 +85,6 @@ function render() {
     renderText();
 }
 
-
-// input events
-// -------------------------------------------------------------------
-document.addEventListener('click', (e) => {
-    if (world.showGrid) {
-        const scaledX = Math.floor(e.offsetX / SCALE);
-        const scaledY = Math.floor(e.offsetY / SCALE);
-        console.log(`offsetX:${e.offsetX} | offsetY:${e.offsetY} | scaled offsetX:${scaledX} | scaled offsetY:${scaledY}`);
-    }
-});
 
 let keyDownDelay;
 

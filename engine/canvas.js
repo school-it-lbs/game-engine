@@ -1,6 +1,6 @@
 class CanvasPainter {
 
-    constructor(canvasSelector, sizeX, sizeY, tilesetSelector) {
+    constructor(canvasSelector, sizeX, sizeY, tileset) {
         this.canvas = document.querySelector(canvasSelector);
         this.canvas.width = sizeX;
         this.canvas.height = sizeY;
@@ -8,7 +8,7 @@ class CanvasPainter {
         this.ctx = this.canvas.getContext("2d");
         this.ctx.imageSmoothingEnabled = false;
 
-        this.tileset = document.querySelector(tilesetSelector);
+        this.tileset = tileset;
     }
 
     resize(sizeX, sizeY){
@@ -22,8 +22,8 @@ class CanvasPainter {
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    drawTile(imageSrc, tileX, tileY, posX, posY) {
-        this.ctx.drawImage(imageSrc, tileX * (TILE_SIZE + TILE_GAP), tileY * (TILE_SIZE + TILE_GAP), TILE_SIZE, TILE_SIZE, posX * SCALE, posY * SCALE, SCALE, SCALE);
+    drawTile(tileX, tileY, posX, posY) {
+        this.ctx.drawImage(this.tileset.image, tileX * (this.tileset.tileSize + this.tileset.gapSize), tileY * (this.tileset.tileSize + this.tileset.gapSize), this.tileset.tileSize, this.tileset.tileSize, posX * SCALE, posY * SCALE, SCALE, SCALE);
     }
 
     drawBox(x, y) {
@@ -45,9 +45,9 @@ class CanvasPainter {
     }
 
     renderTileById(id, posX, posY) {
-        let tileX = id % TILES_PER_ROW;
-        let tileY = Math.floor(id / TILES_PER_ROW);
-        this.drawTile(tileset, tileX, tileY, posX, posY);
+        let tileX = id % this.tileset.tilesPerRow;
+        let tileY = Math.floor(id / this.tileset.tilesPerRow);
+        this.drawTile(tileX, tileY, posX, posY);
     }
 
     renderMap(map) {

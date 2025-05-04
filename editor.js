@@ -2,8 +2,10 @@ let selectedTile = -1;
 
 let mapSizeX = document.querySelector("#map-size-x").value;
 let mapSizeY = document.querySelector("#map-size-y").value;
-const painter = new CanvasPainter("canvas", mapSizeY * SCALE, mapSizeX * SCALE, "#tileset");
+const tileset = new Tileset("#tileset", 16, 0, 12);
+const painter = new CanvasPainter("canvas", mapSizeY * SCALE, mapSizeX * SCALE, tileset);
 
+const tileSelection = document.querySelector("#tileset");
 
 
 
@@ -30,18 +32,18 @@ let main = populateArray(-1);
 const backgroundTextarea = document.querySelector("#backgroundTextarea");
 const mainTextarea = document.querySelector("#mainTextarea");
 
-const tileSelection = document.querySelector("#tileset");
+
 const scaleFactor = 2;
 const computedStyleTileSet = getComputedStyle(tileSelection);
 tileSelection.style.width = (computedStyleTileSet.width.replace("px","") * scaleFactor) + "px";
 
 tileSelection.addEventListener("click", (e) => {
-    const selectedX = Math.floor(e.offsetX / ((TILE_SIZE + TILE_GAP) * scaleFactor));
-    const selectedY = Math.floor(e.offsetY / ((TILE_SIZE + TILE_GAP) * scaleFactor));    
+    const selectedX = Math.floor(e.offsetX / tileset.scaledTileSize(scaleFactor));
+    const selectedY = Math.floor(e.offsetY / tileset.scaledTileSize(scaleFactor));    
 
     // console.log(selectedX + "|" + selectedY);
 
-    selectedTile = selectedX + (selectedY * TILES_PER_ROW);
+    selectedTile = selectedX + (selectedY * tileset.tilesPerRow);
 });
 
 
