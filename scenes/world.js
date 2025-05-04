@@ -21,6 +21,7 @@ class World{
         this.gameOver = false;
         this.showGrid = false;
         this.inventory = "";
+        this.sfx = document.querySelector("#sfx");
 
         this.statusPoints = new StatusText(10, 50, this.points);
         this.statusText = [this.statusPoints];
@@ -33,7 +34,7 @@ class World{
     scorePoint(){
         this.points++;
         this.statusPoints.text = this.points;
-        sfx.play();
+        this.sfx.play();
 
         if(this.points == 4)
         {
