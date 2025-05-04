@@ -25,7 +25,7 @@ const character = {
     },
 
     moveRight: function(){
-        if(this.posX < world.currentLevel.main[0].length - 1){
+        if(this.posX < world.currentLevel.mapSizeY - 1){
             this.posX += 1;
         }
     },
@@ -37,7 +37,7 @@ const character = {
     },
 
     moveDown: function(){        
-        if(this.posY < world.currentLevel.main.length - 1){
+        if(this.posY < world.currentLevel.mapSizeX - 1){
             this.posY += 1;
         }
     },
@@ -91,4 +91,26 @@ function startGameLoop(callback){
     }
     
     requestAnimationFrame(gameloop);
+}
+
+class Scene{
+    background = [];
+    main = [];
+
+    get mapSizeX(){
+        return this.main.length;
+    };
+
+    get mapSizeY(){
+        return this.main[0].length;
+    }
+
+    teleport(character){}
+
+    animation() {}
+
+    interact(character) {}
+
+    overlay() {}
+
 }
