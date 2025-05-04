@@ -31,12 +31,17 @@ class World{
         new Scene4()
     ];
 
+    statusText = []
+
     constructor(){        
         this.activeScene = this.sceneList[0];
         this.points = 0;
         this.gameOver = false;
         this.showGrid = false;
         this.inventory = "";
+
+        this.statusPoints = new StatusText(10, 50, this.points);
+        this.statusText.push(this.statusPoints);
     }
 
     switchScene(sceneId){
@@ -45,29 +50,30 @@ class World{
 
     scorePoint(){
         this.points++;
+        this.statusPoints.text = this.points;
         sfx.play();
+
+        if(this.points == 4)
+        {
+            this.gameOver = true;
+            this.statusPoints.text = "You Win!";
+        }
+    }
+    
+    addInventory(itemName){
+        this.inventory = itemName;
+        this.statusText.push(new StatusText(10, 700, itemName, "#ffff00"));
+    }
+
+    setKilled(){
+        this.gameOver = true;
+        this.statusPoints.text = "Game Over";
+        this.statusPoints.color = "#ff0000";
     }
 }
 
 const world = new World();
 
-
-
-
-// render
-// -------------------------------------------------------------------
-function renderText() {
-    let text = world.points;
-    if (world.gameOver) {
-        text = "GAME OVER";
-    }
-    else if (world.points == 4) {
-        text = "You win!";
-    }
-
-    painter.drawText(text, 10, 50, "#ffffff");
-    painter.drawText(world.inventory, 10, 700, "#ffffff");
-}
 
 
 function render() {
@@ -100,8 +106,9 @@ function render() {
         }
     });
 
-
-    renderText();
+    world.statusText.forEach(s => {
+        painter.drawText(s.text, s.posX, s.posY, s.color);
+    });
 }
 
 

@@ -50,7 +50,7 @@ class Scene4 extends Scene{
         }
 
         if(player.hasCollided(this.bow)){
-            world.inventory = "Bow";
+            world.addInventory("Bow");
             delete this.sprites[this.sprites.indexOf(this.bow)];
         }
     }

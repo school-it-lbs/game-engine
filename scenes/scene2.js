@@ -56,7 +56,7 @@ class Scene2 extends Scene {
         }
 
         if (player.hasCollided(this.enemy)) {
-            world.gameOver = true;
+            world.setKilled();
         } 
     }
 
