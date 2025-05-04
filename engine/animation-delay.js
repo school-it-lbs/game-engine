@@ -1,14 +1,15 @@
 class AnimationDelay {
     previousTime = performance.now();
 
-    constructor(delayInSeconds) {
+    constructor(delayInSeconds, callback) {
         this.delayInSeconds = delayInSeconds;
+        this.callback = callback;
     }
 
-    animate(callback) {
+    animate() {
         const deltaTime = performance.now() - this.previousTime;
         if (deltaTime > this.delayInSeconds) {
-            callback();
+            this.callback();
             this.previousTime = performance.now();;
         }
     }

@@ -1,7 +1,4 @@
 class Scene2 extends Scene {
-    
-    enemy = new Sprite(0, 10, 136);
-    enemyAnimation = new AnimationDelay(500);
 
     constructor() {
         super();
@@ -43,20 +40,18 @@ class Scene2 extends Scene {
             [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
         ];
 
-        this.sprites.push(this.enemy);
-    }
-
-    animation() {
-        this.enemyAnimation.animate(() => {            
-            this.enemy.posX = (this.enemy.posX + 1) % world.currentLevel.mapSizeY;
-
-            if (character.hasCollided(this.enemy)) {
+        const enemy = new Sprite(0, 10, 136);
+        enemy.setAnimation(500, (s) => {
+            s.posX = (s.posX + 1) % world.currentLevel.mapSizeY;
+    
+            if (character.hasCollided(s)) {
                 world.gameOver = true;
             }
-
+    
         });
-    }
 
+        this.sprites = [enemy];
+    }
 
     teleport(character) {
         if (character.posX == 4 && character.posY == 4) {

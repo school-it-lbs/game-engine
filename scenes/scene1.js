@@ -1,9 +1,5 @@
 class Scene1 extends Scene {
 
-    animationDoor = new AnimationDelay(250);
-    animationNpc = new AnimationDelay(1000);
-    animationBucket = new AnimationDelay(500);
-    
     constructor() {
         super();
         this.background = [
@@ -45,13 +41,17 @@ class Scene1 extends Scene {
         ];
 
         this.friendlyNpc = new Sprite(5, 9, 135);
+        this.friendlyNpc.setAnimation(1000, (s) => { s.tileId = s.tileId === 136 ? 135 : 136; });
         this.friendlyNpc.isSpeaking = false;
 
-        this.door = new Sprite(4, 13, 85);
-        this.bucket = new Sprite(9, 10, 131);
+        const door = new Sprite(4, 13, 85);
+        door.setAnimation(250, (s) => { s.tileId = s.tileId === 85 ? 74 : 85; })
+
+        const bucket = new Sprite(9, 10, 131);
+        bucket.setAnimation(500, (s) => { s.tileId = s.tileId === 131 ? -1 : 131; })
 
 
-        this.sprites = [this.friendlyNpc, this.door, this.bucket];
+        this.sprites = [this.friendlyNpc, door, bucket];
     }
 
     teleport(character) {
@@ -70,13 +70,6 @@ class Scene1 extends Scene {
         if (character.posX == 1 && character.posY == 0) {
             world.jumpToLevel(3);
         }
-    }
-
-    animation() {
-        
-        this.animationDoor.animate(() => { this.door.tileId = this.door.tileId === 85 ? 74 : 85; });
-        this.animationNpc.animate(() => { this.friendlyNpc.tileId = this.friendlyNpc.tileId === 136 ? 135 : 136; });
-        this.animationBucket.animate(() => { this.bucket.tileId = this.bucket.tileId === 131 ? -1 : 131; });
     }
 
     interact(character) {

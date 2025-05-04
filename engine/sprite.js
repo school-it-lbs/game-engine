@@ -39,4 +39,13 @@ class Sprite {
         && otherSprite.posY == this.posY
         && this.posY == otherSprite.posY;
     }
+
+    setAnimation(delayInSec, callback){
+        this.animation = new AnimationDelay(delayInSec, () => callback(this));           
+    }
+
+    animate(){
+        if(!this.animation) return;
+        this.animation.animate();
+    }
 }

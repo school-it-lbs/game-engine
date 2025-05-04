@@ -60,7 +60,7 @@ function renderText() {
 
 function render() {
     painter.clearCanvas();
-    world.currentLevel.animation();
+    
 
     if (USE_FIXED_VIEW) {
         painter.renderMapComplete(world.currentLevel.background, VIEWPORT_SIZE, VIEWPORT_SIZE);
@@ -78,6 +78,7 @@ function render() {
     }
 
     world.currentLevel.sprites.forEach(sprite => {
+        sprite.animate();
         painter.renderSprite(sprite);
     });
 
