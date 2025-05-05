@@ -30,6 +30,8 @@ class GameLoop{
                 painter.renderOverlay(speech);
             }
         });
+
+        painter.renderMask();
     
         world.statusText.forEach(s => {
             painter.drawText(s.text, s.posX, s.posY, s.color);

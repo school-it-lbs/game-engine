@@ -153,6 +153,17 @@ class CanvasPainter {
             }
         }
     }
+
+    renderMask(){
+        const m = world.activeScene.mask;
+        if(m && m.isActive)
+        {
+            this.ctx.save();
+            this.ctx.globalAlpha = m.alpha;
+            this.ctx.drawImage(m.imgSrc, 0, 0, m.imgSize, m.imgSize, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
+            this.ctx.restore();
+        }        
+    }
 }
 
 

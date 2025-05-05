@@ -47,7 +47,16 @@ class Scene2 extends Scene {
 
         this.portal = new Sprite(4, 4, 29);
 
-        this.sprites = [this.enemy, this.portal];
+        this.switch = new Sprite(15, 9, 117);
+
+        this.sprites = [this.enemy, this.portal, this.switch];
+
+        this.mask = {
+            imgSrc: document.querySelector("#mask"),
+            imgSize: 80,
+            alpha: 0.9,
+            isActive: true
+        }
     }
 
     interaction(player) {
@@ -58,6 +67,11 @@ class Scene2 extends Scene {
         if (player.hasCollided(this.enemy)) {
             world.setKilled();
         } 
+
+        if(player.hasCollided(this.switch))
+        {
+            this.mask.isActive = false;
+        }
     }
 
 }
