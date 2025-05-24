@@ -35,6 +35,17 @@ const backgroundTextarea = document.querySelector("#backgroundTextarea");
 const mainTextarea = document.querySelector("#mainTextarea");
 
 
+const storeBackground = localStorage.getItem("background");
+if(storeBackground){	
+	background = JSON.parse(storeBackground);	
+}
+
+const mainStorage = localStorage.getItem("main");
+if(mainStorage){
+	main = JSON.parse(mainStorage);	
+}
+
+
 const scaleFactor = 2;
 const computedStyleTileSet = getComputedStyle(tileSelection);
 tileSelection.style.width = (computedStyleTileSet.width.replace("px","") * scaleFactor) + "px";
@@ -64,6 +75,9 @@ function outputFormat(arrayName){
 function output(){
     backgroundTextarea.value = outputFormat(background);
     mainTextarea.value = outputFormat(main);
+		
+	localStorage.setItem("background", JSON.stringify(background));
+	localStorage.setItem("main", JSON.stringify(main));
 }
 
 
@@ -100,7 +114,7 @@ function drawTile(e){
 	const row = Math.floor(e.offsetX / SCALE);
     const col = Math.floor(e.offsetY / SCALE);
 
-    console.log(row + "|" + col);
+    //console.log(row + "|" + col);
 
     const map = document.querySelector('input[name="layer"]:checked').value == "background" ? background : main;
 
@@ -109,6 +123,8 @@ function drawTile(e){
 }
 
 document.querySelector("button#update").addEventListener("click", () => {
+	localStorage.clear();
+	
     mapSizeX = document.querySelector("#map-size-x").value;
     mapSizeY = document.querySelector("#map-size-y").value;
     painter.resize(mapSizeY * SCALE, mapSizeX * SCALE);
