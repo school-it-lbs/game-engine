@@ -76,9 +76,28 @@ function render() {
     output();
 }
 
+let isMouseDown = false;
+const canvas = document.querySelector("canvas");
 
-document.querySelector("canvas").addEventListener('click', (e) => {    
-    const row = Math.floor(e.offsetX / SCALE);
+canvas.addEventListener('mousedown', (e) => {
+	isMouseDown = true;
+});
+
+canvas.addEventListener('mouseup', (e) => {
+	isMouseDown = false;
+});
+
+canvas.addEventListener('click', (e) => {
+	drawTile(e);
+});
+
+canvas.addEventListener('mousemove', (e) => {
+	if(!isMouseDown) return;
+	drawTile(e);
+});
+
+function drawTile(e){
+	const row = Math.floor(e.offsetX / SCALE);
     const col = Math.floor(e.offsetY / SCALE);
 
     console.log(row + "|" + col);
@@ -87,7 +106,7 @@ document.querySelector("canvas").addEventListener('click', (e) => {
 
     map[col][row] = e.shiftKey ? -1 : selectedTile;
     render();
-});
+}
 
 document.querySelector("button#update").addEventListener("click", () => {
     mapSizeX = document.querySelector("#map-size-x").value;
